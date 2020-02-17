@@ -1,0 +1,50 @@
+We need to create dummy CSV files first
+  Small sample from actual CSV files
+
+
+StatTracker class
+  need to require 'CSV'
+  need to require any other classes or modules created
+from_csv class method
+  needs to return an instance of StatTracker (last line of method = StatTracker.new)
+    def self.from_csv
+
+    end
+
+  this method needs to store all the data we need as instance variables
+    this means that when the new instance of StatTracker is instantiated, it
+    will require an argument(s) of the data being read in from the csv file
+      StatTracker.new(data1, data2, data3)
+
+  this method will take 1 argument
+    the arugment will be a hash (keys = :games, :teams, :game_teams, values =
+    respective file paths to the csv files)
+
+
+::from_csv is just another syntax for .from_csv (in this case)
+https://stackoverflow.com/questions/11043450/vs-dot-vs-double-colon-for-calling-a-method
+
+Method example (see runner for reference)=
+
+  def self.from_csv(locations)
+    games_data = []
+    CSV.foreach(locations[:games], headers: true, header_converters: :symbol) do |row|
+      games_params = row.to_hash
+      games_data << Game.new(games_params)
+    end
+    StatTracker.new(games_data)
+  end
+  This will need to be done with each CSV file
+
+Team class
+Game class
+Season class? 
+Game_Teams class
+
+
+The games.csv file is made up of game stats that belong to a season
+The game_teams.csv file is made up of game stats that belong to a team
+
+All of the methods throughout the iterations need to be instance methods for
+the StatTracker class
+  The work for these methods needs to be done elsewhere
