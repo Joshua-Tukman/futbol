@@ -1,7 +1,29 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/andy/turing/1module/projects/futbol/lib/teams.rb": {
+      "/Users/huxley/1module/projects/futbol/lib/games.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/huxley/1module/projects/futbol/lib/teams.rb": {
         "lines": [
           1,
           null,
@@ -13,18 +35,18 @@
           null,
           null,
           1,
-          2,
-          2,
-          2,
-          2,
-          2,
-          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1582039925
+    "timestamp": 1582057873
   }
 }

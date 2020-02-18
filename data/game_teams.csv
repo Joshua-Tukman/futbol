@@ -14625,7 +14625,7 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2015021182,24,home,WIN,REG,Bruce Boudreau,3,6,34,10,2,0,59.2,11,6
 2017020656,12,away,LOSS,REG,Bill Peters,2,8,13,0,4,2,61.8,7,3
 2017020656,14,home,WIN,REG,Jon Cooper,3,8,17,8,0,0,38.2,8,7
-2016020658,8,away,LOSS,REG,Michel Therrien,0,4,16,8,1,0,54.5,1,2
+2016020658,8,away,LOSS,REG,Michel  Therrien,0,4,16,8,1,0,54.5,1,2
 2016020658,17,home,WIN,REG,Jeff Blashill,1,5,11,2,4,0,45.5,10,2
 2015021120,3,away,WIN,REG,Alain Vigneault,3,5,25,14,3,2,43.1,9,6
 2015021120,8,home,LOSS,REG,Michel Therrien,2,6,32,8,6,0,56.9,20,5
