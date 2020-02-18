@@ -1,10 +1,5 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
-require './lib/teams'
-
+require './test/test_helper'
+require './lib/team'
 
 class TeamTest < Minitest::Test
 
@@ -17,7 +12,6 @@ class TeamTest < Minitest::Test
     stadium: "Mercedes-Benz Stadium",
     link: "/api/v1/teams/1"
   }
-
     @team = Team.new(params)
   end
 
@@ -33,6 +27,5 @@ class TeamTest < Minitest::Test
     assert_equal "Mercedes-Benz Stadium", @team.stadium
     assert_equal "/api/v1/teams/1", @team.link
   end
-
 
 end

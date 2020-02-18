@@ -1,5 +1,4 @@
 class GameTeams
-
   attr_reader     :game_id,
                   :team_id,
                   :hoa,
@@ -15,7 +14,7 @@ class GameTeams
                   :faceOffWinPercentage,
                   :giveaways,
                   :takeaways
-                  
+
   def initialize(params)
     @game_id = params[:game_id]
     @team_id = params[:team_id]

@@ -1,11 +1,8 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
+require './test/test_helper'
 require './lib/game_teams'
 
 class GameTeamsTest < Minitest::Test
+
   def setup
     params = {
       game_id: "2012030221",
@@ -24,7 +21,6 @@ class GameTeamsTest < Minitest::Test
       giveaways: '17',
       takeaways: '7'
     }
-
     @game_team = GameTeams.new(params)
   end
 
@@ -49,4 +45,5 @@ class GameTeamsTest < Minitest::Test
     assert_equal '17', @game_team.giveaways
     assert_equal '7', @game_team.takeaways
   end
+
 end
