@@ -4,15 +4,6 @@ require 'CSV'
 # require './lib/game_teams.rb'
 
 class StatTracker
-  attr_reader :games_data,
-              :teams_data,
-              :game_teams_data
-
-  def initialize(games_data, teams_data, game_teams_data)
-    @games_data = games_data
-    @teams_data = teams_data
-    @game_teams_data = game_teams_data
-  end
 
   def self.from_csv(stats_params)
     games_data = []
@@ -33,6 +24,15 @@ class StatTracker
       game_teams_data << game_teams_params
     end
     StatTracker.new(games_data, teams_data, game_teams_data)
+  end
+
+  attr_reader :games_data,
+              :teams_data,
+              :game_teams_data
+  def initialize(games_data, teams_data, game_teams_data)
+    @games_data = games_data
+    @teams_data = teams_data
+    @game_teams_data = game_teams_data
   end
 
 end

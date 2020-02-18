@@ -17,6 +17,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
+    require "pry"; binding.pry
     assert_instance_of StatTracker, @stat_tracker
   end
 
