@@ -1,7 +1,7 @@
 require 'CSV'
-# require './lib/game.rb'
-# require './lib/team.rb'
-# require './lib/game_teams.rb'
+require './lib/game.rb'
+require './lib/team.rb'
+require './lib/game_teams.rb'
 
 class StatTracker
 
@@ -9,19 +9,17 @@ class StatTracker
     games_data = []
     CSV.foreach(stats_params[:games], headers: true, header_converters: :symbol) do |row|
       games_params = row.to_hash
-      games_data << games_params
+      games_data << Game.new(games_params)
     end
-
     teams_data = []
     CSV.foreach(stats_params[:teams], headers: true, header_converters: :symbol) do |row|
       teams_params = row.to_hash
-      teams_data << teams_params
+      teams_data << Team.teams_params
     end
-
     game_teams_data = []
     CSV.foreach(stats_params[:game_teams], headers: true, header_converters: :symbol) do |row|
       game_teams_params = row.to_hash
-      game_teams_data << game_teams_params
+      game_teams_data << GameTeams.new(game_teams_params)
     end
     StatTracker.new(games_data, teams_data, game_teams_data)
   end

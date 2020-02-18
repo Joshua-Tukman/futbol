@@ -17,8 +17,25 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
-    require "pry"; binding.pry
     assert_instance_of StatTracker, @stat_tracker
+  end
+
+  def test_it_stores_a_collection_of_games
+    assert_equal 471, @stat_tracker.games_data.size
+    assert_instance_of Game, @stat_tracker.games_data.sample
+    assert_instance_of Game, @stat_tracker.games_data.sample
+  end
+
+  def test_it_stores_a_collection_of_teams
+    assert_equal 2, @stat_tracker.teams_data.size
+    assert_instance_of Team, @stat_tracker.teams_data[0]
+    assert_instance_of Team, @stat_tracker.teams_data[1]
+  end
+
+  def test_it_stores_a_collection_of_game_teams_data
+    assert_equal 946, @stat_tracker.game_teams_data.size
+    assert_instance_of GameTeam, @stat_tracker.game_teams_data.sample
+    assert_instance_of GameTeam, @stat_tracker.game_teams_data.sample
   end
 
 end
