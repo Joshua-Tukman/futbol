@@ -14,7 +14,7 @@ class StatTracker
     teams_data = []
     CSV.foreach(stats_params[:teams], headers: true, header_converters: :symbol) do |row|
       teams_params = row.to_hash
-      teams_data << Team.teams_params
+      teams_data << Team.new(teams_params)
     end
     game_teams_data = []
     CSV.foreach(stats_params[:game_teams], headers: true, header_converters: :symbol) do |row|

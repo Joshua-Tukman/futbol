@@ -33,9 +33,9 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_stores_a_collection_of_game_teams_data
-    assert_equal 946, @stat_tracker.game_teams_data.size
-    assert_instance_of GameTeam, @stat_tracker.game_teams_data.sample
-    assert_instance_of GameTeam, @stat_tracker.game_teams_data.sample
+    assert_equal 945, @stat_tracker.game_teams_data.size
+    assert_instance_of GameTeams, @stat_tracker.game_teams_data.sample
+    assert_instance_of GameTeams, @stat_tracker.game_teams_data.sample
   end
 
 end
