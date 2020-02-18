@@ -1,0 +1,18 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/andy/turing/1module/projects/futbol/lib/teams.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1582039505
+  }
+}
