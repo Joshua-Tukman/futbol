@@ -115,6 +115,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
   end
 
+  def test_it_calculates_worst_offense
+    assert_equal "Atlanta United", @stat_tracker.worst_offense
+  end
+
+
 
 
 end

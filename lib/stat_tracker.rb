@@ -107,4 +107,10 @@ class StatTracker
     end.teamname
   end
 
+  def worst_offense
+    @teams_data.min_by do |team|
+      goals_for(team.team_id)
+    end.teamname
+  end
+
 end
