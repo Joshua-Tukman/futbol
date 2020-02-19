@@ -68,18 +68,20 @@ class StatTracker
     (num.to_f / denom).round(2)
   end
 
-  # def average_goals_by_season
-  #   total_goals_per_season = Game.all.reduce({}) do |season_goals, game|
-  #     if !season_goals[game.season.to_s]
-  #       season_goals[game.season.to_s] = game.total_score
-  #     else
-  #       season_goals[game.season.to_s] += game.total_score
-  #     end
-  #     season_goals
-  #   end
-  #   avg_goals = total_goals_per_season.map do |key, value|
-  #     value = value.to_f / count_of_games_by_season[key]
-  #   end
-  # end
+  def average_goals_by_season
+    total_goals_per_season = Game.all.reduce({}) do |season_goals, game|
+      if !season_goals[game.season.to_s]
+        season_goals[game.season.to_s] = game.total_score
+      else
+        season_goals[game.season.to_s] += game.total_score
+      end
+      season_goals
+    end
+    avg_goals = {}
+    total_goals_per_season.each do |key, value|
+      avg_goals[key] = (value.to_f / count_of_games_by_season[key]).round(2)
+    end
+    avg_goals
+  end
 
 end
