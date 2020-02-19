@@ -51,4 +51,15 @@ class StatTracker
     (num.to_f / denom * 100).round(2)
   end
 
+  def count_of_games_by_season
+    Game.all.reduce({}) do |games_count, game|
+      if !games_count[game.season.to_s]
+        games_count[game.season.to_s] = 1
+      else
+        games_count[game.season.to_s] += 1
+      end
+      games_count
+    end
+  end
+
 end
