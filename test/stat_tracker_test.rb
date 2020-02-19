@@ -54,6 +54,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal 38.43, @stat_tracker.percentage_home_wins
   end
 
+  def test_it_finds_percentage_visitor_wins
+    assert_equal 39.49, @stat_tracker.percentage_visitor_wins
+  end
+
   def test_it_finds_percentage_of_ties
     assert_equal 22.08, @stat_tracker.percentage_ties
   end

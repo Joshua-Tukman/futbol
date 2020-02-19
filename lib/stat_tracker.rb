@@ -39,6 +39,12 @@ class StatTracker
     (num.to_f / denom * 100).round(2)
   end
 
+  def percentage_visitor_wins
+    num = Game.all.select{ |game| game.away_goals > game.home_goals}.length
+    denom = Game.all.length
+    (num.to_f / denom * 100).round(2)
+  end
+
   def percentage_ties
     num = Game.all.select{ |game| game.margin_of_victory == 0}.length
     denom = Game.all.length
