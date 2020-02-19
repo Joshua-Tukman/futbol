@@ -111,9 +111,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 546, @stat_tracker.goals_for(2, "home")
   end
 
-  # def test_it_calculates_best_offense
-  #   assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
-  # end
+  def test_it_calculates_best_offense
+    assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
+  end
 
 
 

@@ -101,9 +101,10 @@ class StatTracker
     goals
   end
 
-  # def best_offense
-  #   num = GameTeams.all.sum { |game| game.goals}
-  #   denom = GameTeams.all.
-  # end
+  def best_offense
+    @teams_data.max_by do |team|
+      goals_for(team.team_id)
+    end.teamname
+  end
 
 end
