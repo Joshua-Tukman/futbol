@@ -58,7 +58,7 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_finds_total_score
-    require "pry"; binding.pry
+     assert_equal 5, @new_game.total_score
   end
-
+  
 end

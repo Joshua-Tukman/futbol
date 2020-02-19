@@ -28,4 +28,5 @@ class StatTracker
   def lowest_total_score
     Game.all.min_by { |game| game.total_score}.total_score
   end
+  
 end
