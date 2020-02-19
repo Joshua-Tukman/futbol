@@ -131,6 +131,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.lowest_scoring_visitor
   end
 
+  def test_it_calculates_lowest_scoring_home_team
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
+  end
+
 
 
 end
