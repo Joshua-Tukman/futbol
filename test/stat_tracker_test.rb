@@ -4,9 +4,9 @@ require './lib/stat_tracker'
 class StatTrackerTest < Minitest::Test
 
   def setup
-    game_path = './data/games_sample.csv'
-    team_path = './data/teams_sample.csv'
-    game_teams_path = './data/game_teams_sample.csv'
+    game_path = './test/fixtures/games_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_sample.csv'
 
     locations = {
       games: game_path,
