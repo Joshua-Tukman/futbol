@@ -24,4 +24,8 @@ class StatTracker
   def highest_total_score
     Game.all.max_by { |game| game.total_score}.total_score
   end
+
+  def lowest_total_score
+    Game.all.min_by { |game| game.total_score}.total_score
+  end
 end
