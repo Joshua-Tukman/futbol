@@ -15,9 +15,9 @@ class GameTeamsTest < Minitest::Test
       shots: '8',
       tackles: '44',
       pim: '8',
-      powerPlayOpportunities: '3',
-      powerPlayGoals: '0',
-      faceOffWinPercentage: '44.8',
+      powerplayopportunities: '3',
+      powerplaygoals: '0',
+      faceoffwinpercentage: '44.8',
       giveaways: '17',
       takeaways: '7'
     }
@@ -39,9 +39,9 @@ class GameTeamsTest < Minitest::Test
     assert_equal '8', @game_team.shots
     assert_equal '44', @game_team.tackles
     assert_equal '8', @game_team.pim
-    assert_equal '3', @game_team.powerPlayOpportunities
-    assert_equal '0', @game_team.powerPlayGoals
-    assert_equal '44.8', @game_team.faceOffWinPercentage
+    assert_equal '3', @game_team.powerplayopportunities
+    assert_equal '0', @game_team.powerplaygoals
+    assert_equal '44.8', @game_team.faceoffwinpercentage
     assert_equal '17', @game_team.giveaways
     assert_equal '7', @game_team.takeaways
   end

@@ -9,7 +9,7 @@ class Game
               :home_goals,
               :venue,
               :venue_link
-
+              
   def initialize(params)
     @game_id = params[:game_id]
     @season = params[:season]

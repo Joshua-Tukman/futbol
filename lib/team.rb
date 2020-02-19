@@ -1,15 +1,15 @@
 class Team
-  attr_reader   :team_id,
-                :franchiseId,
-                :teamName,
-                :abbreviation,
-                :stadium,
-                :link
+  attr_reader :team_id,
+              :franchiseid,
+              :teamname,
+              :abbreviation,
+              :stadium,
+              :link
 
   def initialize(params)
     @team_id = params[:team_id]
-    @franchiseId = params[:franchiseId]
-    @teamName = params[:teamName]
+    @franchiseid = params[:franchiseid]
+    @teamname = params[:teamname]
     @abbreviation = params[:abbreviation]
     @stadium = params[:stadium]
     @link = params[:link]
