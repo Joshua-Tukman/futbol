@@ -1,14 +1,12 @@
-require 'csv'
+require './lib/data_loadable.rb'
 
 class GameTeams
+  extend DataLoadable
   @@all_game_teams_data = nil
 
   def self.load_csv(file_path)
     @@all_game_teams_data = []
-    CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-      teams_params = row.to_hash
-      @@all_game_teams_data << GameTeams.new(teams_params)
-    end
+    create(file_path, @@all_game_teams_data)
   end
 
   def self.all
