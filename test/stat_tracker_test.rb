@@ -71,7 +71,6 @@ class StatTrackerTest < Minitest::Test
       '20162017' => 82,
       '20172018' => 84
     }
-
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
@@ -88,7 +87,6 @@ class StatTrackerTest < Minitest::Test
       '20162017' => 357,
       '20172018' => 399
     }
-
     assert_equal expected, @stat_tracker.total_goals_per_season
   end
 
@@ -101,10 +99,11 @@ class StatTrackerTest < Minitest::Test
       '20162017' => 4.35,
       '20172018' => 4.75
     }
-
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
-
+  def test_it_can_count_the_number_of_teams
+    assert_equal 2, @stat_tracker.count_of_teams
+  end
 
 end

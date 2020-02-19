@@ -87,4 +87,8 @@ class StatTracker
     avg_goals
   end
 
+  def count_of_teams
+    @teams_data.size
+  end
+  
 end
