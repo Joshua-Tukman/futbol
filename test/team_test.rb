@@ -22,8 +22,8 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal "1", @team.team_id
-    assert_equal "23", @team.franchiseid
+    assert_equal 1, @team.team_id
+    assert_equal 23, @team.franchiseid
     assert_equal "Atlanta United", @team.teamname
     assert_equal "ATL", @team.abbreviation
     assert_equal "Mercedes-Benz Stadium", @team.stadium
@@ -32,8 +32,8 @@ class TeamTest < Minitest::Test
 
   def test_it_can_create_teams_from_csv
     assert_instance_of Team, @new_team
-    assert_equal "2", @new_team.team_id
-    assert_equal "22", @new_team.franchiseid
+    assert_equal 2, @new_team.team_id
+    assert_equal 22, @new_team.franchiseid
     assert_equal "Seattle Sounders FC", @new_team.teamname
     assert_equal "SEA", @new_team.abbreviation
     assert_equal "Centruy Link Field", @new_team.stadium

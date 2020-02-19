@@ -23,8 +23,8 @@ class Team
               :link
 
   def initialize(params)
-    @team_id = params[:team_id]
-    @franchiseid = params[:franchiseid]
+    @team_id = params[:team_id].to_i
+    @franchiseid = params[:franchiseid].to_i
     @teamname = params[:teamname]
     @abbreviation = params[:abbreviation]
     @stadium = params[:stadium]
