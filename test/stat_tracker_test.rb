@@ -105,6 +105,16 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_it_calculates_goals_for_per_team
+    assert_equal 1053, @stat_tracker.goals_for(2)
+    assert_equal 507, @stat_tracker.goals_for(2, "away")
+    assert_equal 546, @stat_tracker.goals_for(2, "home")
+  end
+
+  # def test_it_calculates_best_offense
+  #   assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
+  # end
+
 
 
 end

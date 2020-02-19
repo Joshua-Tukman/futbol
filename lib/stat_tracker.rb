@@ -87,4 +87,23 @@ class StatTracker
     avg_goals
   end
 
+  def goals_for(team_id, filter = nil)
+    goals = 0
+    if !filter
+      @game_teams_data.each do |game|
+        goals += game.goals if game.team_id == team_id
+      end
+    else
+      @game_teams_data.each do |game|
+        goals += game.goals if game.team_id == team_id && game.hoa == filter
+      end
+    end
+    goals
+  end
+
+  # def best_offense
+  #   num = GameTeams.all.sum { |game| game.goals}
+  #   denom = GameTeams.all.
+  # end
+
 end
