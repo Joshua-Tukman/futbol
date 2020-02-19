@@ -50,4 +50,8 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.biggest_blowout
   end
 
+  def test_it_finds_percentage_of_ties
+    assert_equal 22.08, @stat_tracker.percentage_ties
+  end
+
 end

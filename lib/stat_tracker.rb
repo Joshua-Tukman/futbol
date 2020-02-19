@@ -33,4 +33,10 @@ class StatTracker
     Game.all.max_by { |game| game.margin_of_victory }.margin_of_victory
   end
 
+  def percentage_ties
+    num = Game.all.select{ |game| game.margin_of_victory == 0}.length
+    denom = Game.all.length
+    (num.to_f / denom * 100).round(2)
+  end
+
 end
