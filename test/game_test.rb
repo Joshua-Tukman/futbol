@@ -57,4 +57,8 @@ class GamesTest < Minitest::Test
     assert_equal 471, Game.all.size
   end
 
+  def test_it_finds_total_score
+    assert_equal 5, @new_game.total_score
+  end
+
 end
