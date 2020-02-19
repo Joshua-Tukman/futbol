@@ -125,4 +125,10 @@ class StatTracker
     end.teamname
   end
 
+  def lowest_scoring_visitor
+    @teams_data.min_by do |team|
+      goals_for(team.team_id, "away")
+    end.teamname
+  end
+
 end
