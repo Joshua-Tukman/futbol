@@ -62,4 +62,11 @@ class StatTracker
     end
   end
 
+  def average_goals_per_game
+    num = Game.all.sum { |game| game.away_goals + game.home_goals}
+    denom = Game.all.length
+    require "pry"; binding.pry
+    (num.to_f / denom).round(2)
+  end
+
 end
