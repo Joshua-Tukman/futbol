@@ -1,17 +1,21 @@
-require 'simplecov'
-SimpleCov.start
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
-require './lib/games'
-require './lib/teams'
-
+require './test/test_helper'
+require './lib/game'
 
 class GamesTest < Minitest::Test
 
   def setup
-    params = {game_id: '2017030113', season: '20172018', type: 'Postseason', date_time: '4/16/18', away_team_id: '14', home_team_id: '1', away_goals: '2', home_goals: '3', venue: 'Mercedes-Benz', venue_link: '/api/v1/venues/null'}
-
+    params = {
+      game_id: '2017030113',
+      season: '20172018',
+      type: 'Postseason',
+      date_time: '4/16/18',
+      away_team_id: '14',
+      home_team_id: '1',
+      away_goals: '2',
+      home_goals: '3',
+      venue: 'Mercedes-Benz',
+      venue_link: '/api/v1/venues/null'
+    }
     @game = Game.new(params)
   end
 

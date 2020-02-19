@@ -1,21 +1,20 @@
 class GameTeams
+  attr_reader :game_id,
+              :team_id,
+              :hoa,
+              :result,
+              :settled_in,
+              :head_coach,
+              :goals,
+              :shots,
+              :tackles,
+              :pim,
+              :powerplayopportunities,
+              :powerplaygoals,
+              :faceoffwinpercentage,
+              :giveaways,
+              :takeaways
 
-  attr_reader     :game_id,
-                  :team_id,
-                  :hoa,
-                  :result,
-                  :settled_in,
-                  :head_coach,
-                  :goals,
-                  :shots,
-                  :tackles,
-                  :pim,
-                  :powerPlayOpportunities,
-                  :powerPlayGoals,
-                  :faceOffWinPercentage,
-                  :giveaways,
-                  :takeaways
-                  
   def initialize(params)
     @game_id = params[:game_id]
     @team_id = params[:team_id]
@@ -27,9 +26,9 @@ class GameTeams
     @shots = params[:shots]
     @tackles = params[:tackles]
     @pim = params[:pim]
-    @powerPlayOpportunities = params[:powerPlayOpportunities]
-    @powerPlayGoals = params[:powerPlayGoals]
-    @faceOffWinPercentage = params[:faceOffWinPercentage]
+    @powerplayopportunities = params[:powerplayopportunities]
+    @powerplaygoals = params[:powerplaygoals]
+    @faceoffwinpercentage = params[:faceoffwinpercentage]
     @giveaways = params[:giveaways]
     @takeaways = params[:takeaways]
   end
