@@ -123,6 +123,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
   end
 
+  def test_it_calculates_highest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
+  end
 
 
 
