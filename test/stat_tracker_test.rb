@@ -119,6 +119,10 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.worst_offense
   end
 
+  def test_it_calculates_highest_scoring_visitor
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
+  end
+
 
 
 

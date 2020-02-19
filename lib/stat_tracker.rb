@@ -113,4 +113,10 @@ class StatTracker
     end.teamname
   end
 
+  def highest_scoring_visitor
+    @teams_data.max_by do |team|
+      goals_for(team.team_id, "away")
+    end.teamname
+  end
+
 end
