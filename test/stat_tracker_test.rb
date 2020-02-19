@@ -109,6 +109,9 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1053, @stat_tracker.goals_for(2)
     assert_equal 507, @stat_tracker.goals_for(2, "away")
     assert_equal 546, @stat_tracker.goals_for(2, "home")
+    assert_equal 896, @stat_tracker.goals_for(1)
+    assert_equal 440, @stat_tracker.goals_for(1, "away")
+    assert_equal 456, @stat_tracker.goals_for(1, "home")
   end
 
   def test_it_calculates_best_offense
@@ -134,7 +137,4 @@ class StatTrackerTest < Minitest::Test
   def test_it_calculates_lowest_scoring_home_team
     assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
   end
-
-
-
 end
