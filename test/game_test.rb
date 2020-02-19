@@ -58,7 +58,11 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_finds_total_score
-     assert_equal 5, @new_game.total_score
+    assert_equal 5, @new_game.total_score
   end
-  
+
+  def test_it_finds_margin_of_victory
+    assert_equal 1, @new_game.margin_of_victory
+  end
+
 end

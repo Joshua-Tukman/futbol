@@ -28,5 +28,9 @@ class StatTracker
   def lowest_total_score
     Game.all.min_by { |game| game.total_score}.total_score
   end
-  
+
+  def biggest_blowout
+    Game.all.max_by { |game| game.margin_of_victory }.margin_of_victory
+  end
+
 end

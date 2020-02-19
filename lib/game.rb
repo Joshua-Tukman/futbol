@@ -40,5 +40,10 @@ class Game
   def total_score
     @home_goals + @away_goals
   end
-  
+
+  def margin_of_victory
+    (@home_goals - @away_goals).abs
+  end
+
+
 end
