@@ -13,7 +13,7 @@ class TeamTest < Minitest::Test
       link: "/api/v1/teams/1"
     }
     @team = Team.new(params)
-    Team.load_csv('./data/sample_teams.csv')
+    Team.load_csv('./data/teams_sample.csv')
     @new_team = Team.all[1]
   end
 
@@ -42,7 +42,7 @@ class TeamTest < Minitest::Test
 
   def test_it_contains_all_teams
     assert_instance_of Team, Team.all.sample
-    assert_equal 2, Team.all.size 
+    assert_equal 2, Team.all.size
   end
 
 end
