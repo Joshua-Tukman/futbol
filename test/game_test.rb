@@ -17,7 +17,7 @@ class GamesTest < Minitest::Test
       venue_link: '/api/v1/venues/null'
     }
     @game = Game.new(params)
-    Game.load_csv('./data/games_sample.csv')
+    Game.load_csv('./test/fixtures/games_sample.csv')
     @new_game = Game.all[2]
   end
 

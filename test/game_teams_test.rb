@@ -22,7 +22,7 @@ class GameTeamsTest < Minitest::Test
       takeaways: '7'
     }
     @game_team = GameTeams.new(params)
-    GameTeams.load_csv('./data/game_teams_sample.csv')
+    GameTeams.load_csv('./test/fixtures/game_teams_sample.csv')
     @new_data = GameTeams.all[0]
   end
 

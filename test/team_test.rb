@@ -13,7 +13,7 @@ class TeamTest < Minitest::Test
       link: "/api/v1/teams/1"
     }
     @team = Team.new(params)
-    Team.load_csv('./data/teams_sample.csv')
+    Team.load_csv('./test/fixtures/teams_sample.csv')
     @new_team = Team.all[1]
   end
 
