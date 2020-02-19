@@ -21,4 +21,7 @@ class StatTracker
     @game_teams_data = game_teams_data
   end
 
+  def highest_total_score
+    Game.all.max_by { |game| game.total_score}.total_score
+  end
 end
