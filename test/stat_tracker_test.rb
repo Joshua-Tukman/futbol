@@ -106,17 +106,17 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_calculates_goals_for_per_team
-    assert_equal 2.18, @stat_tracker.goals_for(2)
-    assert_equal 2.10, @stat_tracker.goals_for(2, "away")
-    assert_equal 2.28, @stat_tracker.goals_for(2, "home")
-    assert_equal 1.94, @stat_tracker.goals_for(1)
-    assert_equal 1.90, @stat_tracker.goals_for(1, "away")
-    assert_equal 1.97, @stat_tracker.goals_for(1, "home")
+    assert_equal 2.18, @stat_tracker.goals_for_average(2)
+    assert_equal 2.10, @stat_tracker.goals_for_average(2, "away")
+    assert_equal 2.28, @stat_tracker.goals_for_average(2, "home")
+    assert_equal 1.94, @stat_tracker.goals_for_average(1)
+    assert_equal 1.90, @stat_tracker.goals_for_average(1, "away")
+    assert_equal 1.97, @stat_tracker.goals_for_average(1, "home")
   end
 
   def test_it_calculates_goals_against_per_team
-    assert_equal 2.0, @stat_tracker.goals_against(1)
-    assert_equal 2.25, @stat_tracker.goals_against(2)
+    assert_equal 2.0, @stat_tracker.goals_against_average(1)
+    assert_equal 2.25, @stat_tracker.goals_against_average(2)
 
   end
 

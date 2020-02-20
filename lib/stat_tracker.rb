@@ -87,7 +87,7 @@ class StatTracker
     avg_goals
   end
 
-  def goals_for(team_id, filter = nil)
+  def goals_for_average(team_id, filter = nil)
     goals = 0
     games = 0
     if !filter
@@ -104,7 +104,7 @@ class StatTracker
     (goals.to_f / games).round(2)
   end
 
-  def goals_against(team_id)
+  def goals_against_average(team_id)
     goals = 0
     games = 0
     @games_data.each do |game|
@@ -121,37 +121,37 @@ class StatTracker
 
   def best_offense
     @teams_data.max_by do |team|
-      goals_for(team.team_id)
+      goals_for_average(team.team_id)
     end.teamname
   end
 
   def worst_offense
     @teams_data.min_by do |team|
-      goals_for(team.team_id)
+      goals_for_average(team.team_id)
     end.teamname
   end
 
   def highest_scoring_visitor
     @teams_data.max_by do |team|
-      goals_for(team.team_id, "away")
+      goals_for_average(team.team_id, "away")
     end.teamname
   end
 
   def highest_scoring_home_team
     @teams_data.max_by do |team|
-      goals_for(team.team_id, "home")
+      goals_for_average(team.team_id, "home")
     end.teamname
   end
 
   def lowest_scoring_visitor
     @teams_data.min_by do |team|
-      goals_for(team.team_id, "away")
+      goals_for_average(team.team_id, "away")
     end.teamname
   end
 
   def lowest_scoring_home_team
     @teams_data.min_by do |team|
-      goals_for(team.team_id, "home")
+      goals_for_average(team.team_id, "home")
     end.teamname
   end
 
