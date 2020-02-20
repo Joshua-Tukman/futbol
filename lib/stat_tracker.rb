@@ -91,23 +91,10 @@ class StatTracker
     @teams_data.size
   end
 
-  def calculate_win_percentage
-    grouped = @game_teams_data.group_by(&:team_id)
-    grouped.map {|team, data| grouped[team] = data.map(&:result)}
-    grouped.map {|team, data| grouped[team] = (data.count("WIN")/data.size.to_f)*100}
-    grouped
-  end
-
   def winningest_team
-    winningest_team_id = calculate_win_percentage.key(calculate_win_percentage.values.max)
+    winningest_team_id = GameTeams.win_percentage.key(GameTeams.win_percentage.values.max)
     @teams_data.select {|team| team.team_id == winningest_team_id}[0].teamname
   end
 
-  # def winningest_team
-  #   wins = @game_teams_data.select {|data| data.result == "WIN"}
-  #   grouped = wins.group_by(&:team_id)
-  #   winningest_team_id = grouped.values.max_by(&:size)[0].team_id
-  #   @teams_data.select {|team| team.team_id == winningest_team_id}[0].teamname
-  # end
 
 end
