@@ -129,7 +129,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_calculates_best_defense
-assert_equal "Atlanta United", @stat_tracker.best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
+
+  def test_it_calculates_worst_defense
+    assert_equal "Seattle Sounders FC", @stat_tracker.worst_defense
   end
 
   def test_it_calculates_highest_scoring_visitor
