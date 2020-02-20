@@ -106,6 +106,21 @@ class StatTrackerTest < Minitest::Test
     assert_equal 2, @stat_tracker.count_of_teams
   end
 
+  def test_it_can_calculate_win_percentage_for_all_teams
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected = {2 => 40.0, 1 => 20.0}
+    assert_equal expected, stat_tracker.calculate_win_percentage
+  end
+
   def test_it_can_determine_the_winningest_team
     game_path = './test/fixtures/games_smaller_sample.csv'
     team_path = './test/fixtures/teams_sample.csv'
@@ -117,8 +132,22 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-  
     assert_equal "Seattle Sounders FC", stat_tracker.winningest_team
   end
+
+  # def test_it_can_determine_the_winningest_team
+  #   game_path = './test/fixtures/games_smaller_sample.csv'
+  #   team_path = './test/fixtures/teams_sample.csv'
+  #   game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+  #
+  #   locations = {
+  #     games: game_path,
+  #     teams: team_path,
+  #     game_teams: game_teams_path
+  #   }
+  #   stat_tracker = StatTracker.from_csv(locations)
+  #
+  #   assert_equal "Seattle Sounders FC", stat_tracker.winningest_team
+  # end
 
 end
