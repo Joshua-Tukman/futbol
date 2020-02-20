@@ -104,6 +104,21 @@ class StatTracker
     (goals.to_f / games).round(2)
   end
 
+  def goals_against(team_id)
+    goals = 0
+    games = 0
+    @games_data.each do |game|
+      if game.home_team_id == team_id
+        goals += game.away_goals
+        games += 1
+      elsif game.away_team_id == team_id
+        goals += game.home_goals
+        games += 1
+      end
+    end
+    (goals.to_f / games).round(2)
+  end
+
   def best_offense
     @teams_data.max_by do |team|
       goals_for(team.team_id)

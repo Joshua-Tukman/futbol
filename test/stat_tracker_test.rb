@@ -114,6 +114,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 1.97, @stat_tracker.goals_for(1, "home")
   end
 
+  def test_it_calculates_goals_against_per_team
+    assert_equal 2.0, @stat_tracker.goals_against(1)
+    assert_equal 2.25, @stat_tracker.goals_against(2)
+
+  end
+
   def test_it_calculates_best_offense
     assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
   end
