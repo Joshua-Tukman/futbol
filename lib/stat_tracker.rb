@@ -96,5 +96,14 @@ class StatTracker
     @teams_data.select {|team| team.team_id == winningest_team_id}[0].teamname
   end
 
+  def best_fans
+    home_win_percent = GameTeams.win_percentage_hoa("home")
+    away_win_percent = GameTeams.win_percentage_hoa("away")
+    home_win_percent.each do |team, percent|
+      home_win_percent[team] = (percent - away_win_percent[team])
+    end
+    best_fans_team_id = home_win_percent.key(home_win_percent.values.max)
+    @teams_data.select {|team| team.team_id == best_fans_team_id}[0].teamname
+  end
 
 end

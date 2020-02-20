@@ -120,4 +120,18 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Seattle Sounders FC", stat_tracker.winningest_team
   end
 
+  def test_it_can_determine_which_team_has_the_best_fans
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "Atlanta United", stat_tracker.best_fans
+  end
+
 end
