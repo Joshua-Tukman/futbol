@@ -1,8 +1,10 @@
 require_relative 'game.rb'
 require_relative 'team.rb'
 require_relative 'game_teams.rb'
+require_relative 'calculable'
 
 class StatTracker
+  include Calculable
 
   def self.from_csv(locations)
     Team.load_csv(locations[:teams])
@@ -34,21 +36,18 @@ class StatTracker
   end
 
   def percentage_home_wins
-    num = @games_data.select{ |game| game.home_goals > game.away_goals}.length
-    denom = @games_data.length
-    (num.to_f / denom * 100).round(2)
+    home_wins = @games_data.select{ |game| game.home_goals > game.away_goals}.length
+    (average(home_wins, @games_data.length) * 100).round(2)
   end
 
   def percentage_visitor_wins
-    num = @games_data.select{ |game| game.away_goals > game.home_goals}.length
-    denom = @games_data.length
-    (num.to_f / denom * 100).round(2)
+    visitor_wins =  @games_data.select{ |game| game.away_goals > game.home_goals}.length
+    (average(visitor_wins, @games_data.length) * 100).round(2)
   end
 
   def percentage_ties
-    num = @games_data.select{ |game| game.margin_of_victory == 0}.length
-    denom = @games_data.length
-    (num.to_f / denom * 100).round(2)
+    ties = @games_data.select{ |game| game.margin_of_victory == 0}.length
+    (average(ties, @games_data.length) * 100).round(2)
   end
 
   def count_of_games_by_season
@@ -63,9 +62,8 @@ class StatTracker
   end
 
   def average_goals_per_game
-    num = @games_data.sum { |game| game.away_goals + game.home_goals}
-    denom = @games_data.length
-    (num.to_f / denom).round(2)
+    total_goals = @games_data.sum { |game| game.away_goals + game.home_goals}
+    average(total_goals, @games_data.length).round(2)
   end
 
   def total_goals_per_season
@@ -88,8 +86,7 @@ class StatTracker
   end
 
   def goals_for_average(team_id, filter = nil)
-    goals = 0
-    games = 0
+    goals, games = 0, 0
     if !filter
       @game_teams_data.each do |game|
         goals += game.goals if game.team_id == team_id
@@ -105,8 +102,7 @@ class StatTracker
   end
 
   def goals_against_average(team_id)
-    goals = 0
-    games = 0
+    goals, games = 0, 0
     @games_data.each do |game|
       if game.home_team_id == team_id
         goals += game.away_goals

@@ -50,6 +50,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.biggest_blowout
   end
 
+  def test_it_calculates_average
+    assert_equal 2.0, @stat_tracker.average(4, 2)
+    assert_equal 9.0, @stat_tracker.average(27, 3)
+  end
+
   def test_it_finds_percentage_home_wins
     assert_equal 38.43, @stat_tracker.percentage_home_wins
   end
