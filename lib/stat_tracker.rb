@@ -38,19 +38,19 @@ class StatTracker
   def percentage_home_wins
     # Push home wins definition to game data class method & call here?
     home_wins = @games_data.select{ |game| game.home_goals > game.away_goals}.length
-    (average(home_wins, @games_data.length) * 100).round(2)
+    average(home_wins, @games_data.length).round(2)
   end
 
   def percentage_visitor_wins
     # Push visitor wins definition to game data class method & call here?
     visitor_wins =  @games_data.select{ |game| game.away_goals > game.home_goals}.length
-    (average(visitor_wins, @games_data.length) * 100).round(2)
+    average(visitor_wins, @games_data.length).round(2)
   end
 
   def percentage_ties
     # Push ties definition to game data class method & call here?
     ties = @games_data.select{ |game| game.margin_of_victory == 0}.length
-    (average(ties, @games_data.length) * 100).round(2)
+    average(ties, @games_data.length).round(2)
   end
 
   def count_of_games_by_season

@@ -56,15 +56,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_finds_percentage_home_wins
-    assert_equal 38.43, @stat_tracker.percentage_home_wins
+    assert_equal 0.38, @stat_tracker.percentage_home_wins
   end
 
   def test_it_finds_percentage_visitor_wins
-    assert_equal 39.49, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.39, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_finds_percentage_of_ties
-    assert_equal 22.08, @stat_tracker.percentage_ties
+    assert_equal 0.22, @stat_tracker.percentage_ties
   end
 
   def test_it_counts_games_by_season
