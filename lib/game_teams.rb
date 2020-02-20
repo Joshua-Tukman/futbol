@@ -17,7 +17,7 @@ class GameTeams
     grouped = grouped
     grouped.map {|team, data| grouped[team] = data.map(&:result)}
     grouped.map do |team, data|
-      grouped[team] = ((data.count("WIN")/data.size.to_f)*100).round(2)
+      grouped[team] = (data.count("WIN")/data.size.to_f).round(2)
     end
     grouped
   end
