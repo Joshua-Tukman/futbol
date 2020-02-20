@@ -89,16 +89,19 @@ class StatTracker
 
   def goals_for(team_id, filter = nil)
     goals = 0
+    games = 0
     if !filter
       @game_teams_data.each do |game|
         goals += game.goals if game.team_id == team_id
+        games += 1 if game.team_id == team_id
       end
     else
       @game_teams_data.each do |game|
         goals += game.goals if game.team_id == team_id && game.hoa == filter
+        games += 1 if game.team_id == team_id && game.hoa == filter
       end
     end
-    goals
+    (goals.to_f / games).round(2)
   end
 
   def best_offense
