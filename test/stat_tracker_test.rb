@@ -134,4 +134,20 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Atlanta United", stat_tracker.best_fans
   end
 
+  def test_it_can_select_all_teams_with_better_away_records_than_home_records
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+  
+    actual = stat_tracker.worst_fans.map(&:teamname)
+    assert_equal ["Seattle Sounders FC"], actual
+  end
+
 end
