@@ -72,4 +72,10 @@ class GameTeamsTest < Minitest::Test
     assert_equal 945, GameTeams.all.size
   end
 
+  def test_it_can_calculate_win_percentage_for_all_teams
+    GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
+    expected = {2 => 40.0, 1 => 20.0}
+    assert_equal expected, GameTeams.win_percentage
+  end
+
 end
