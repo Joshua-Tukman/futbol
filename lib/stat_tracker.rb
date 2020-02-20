@@ -121,11 +121,17 @@ class StatTracker
 
   def best_offense
     @teams_data.max_by do |team|
-      goals_for_average(team.team_id)
+      goals_against_average(team.team_id)
     end.teamname
   end
 
   def worst_offense
+    @teams_data.min_by do |team|
+      goals_for_average(team.team_id)
+    end.teamname
+  end
+
+  def best_defense
     @teams_data.min_by do |team|
       goals_for_average(team.team_id)
     end.teamname
