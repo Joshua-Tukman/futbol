@@ -90,5 +90,12 @@ class StatTracker
   def count_of_teams
     @teams_data.size
   end
-  
+
+  def winningest_team
+    wins = @game_teams_data.select {|data| data.result == "WIN"}
+    grouped = wins.group_by(&:team_id)
+    winningest_team_id = grouped.values.max_by(&:size)[0].team_id
+    @teams_data.select {|team| team.team_id == winningest_team_id}[0].teamname 
+  end
+
 end
