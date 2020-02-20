@@ -36,22 +36,27 @@ class StatTracker
   end
 
   def percentage_home_wins
+    # Push home wins definition to game data class method & call here?
     home_wins = @games_data.select{ |game| game.home_goals > game.away_goals}.length
     (average(home_wins, @games_data.length) * 100).round(2)
   end
 
   def percentage_visitor_wins
+    # Push visitor wins definition to game data class method & call here?
     visitor_wins =  @games_data.select{ |game| game.away_goals > game.home_goals}.length
     (average(visitor_wins, @games_data.length) * 100).round(2)
   end
 
   def percentage_ties
+    # Push ties definition to game data class method & call here?
     ties = @games_data.select{ |game| game.margin_of_victory == 0}.length
     (average(ties, @games_data.length) * 100).round(2)
   end
 
   def count_of_games_by_season
+    # Push all this logic to class method in Game & call that here?
     @games_data.reduce({}) do |games_count, game|
+      # change bang (!) to .nil?
       if !games_count[game.season.to_s]
         games_count[game.season.to_s] = 1
       else
@@ -62,12 +67,15 @@ class StatTracker
   end
 
   def average_goals_per_game
+    # refactor to call game.total score instead of doing the math
     total_goals = @games_data.sum { |game| game.away_goals + game.home_goals}
     average(total_goals, @games_data.length).round(2)
   end
 
   def total_goals_per_season
+    # Push all this logic to class method in Game & call that here?
     @games_data.reduce({}) do |season_goals, game|
+      # replace bang with .nil?
       if !season_goals[game.season.to_s]
         season_goals[game.season.to_s] = game.total_score
       else
@@ -78,17 +86,24 @@ class StatTracker
   end
 
   def average_goals_by_season
+    # refactor with reduce?
+    # give better names than key/val
     avg_goals = {}
     total_goals_per_season.each do |key, value|
+      # Use average module?
       avg_goals[key] = (value.to_f / count_of_games_by_season[key]).round(2)
     end
     avg_goals
   end
 
   def goals_for_average(team_id, filter = nil)
+    # move variable declaration back to 2 lines?
+    # rename filter as hoa & update below.
     goals, games = 0, 0
+    # filter.nil? instead of !
     if !filter
       @game_teams_data.each do |game|
+        # push this logic to Games Teams class & call it here?
         goals += game.goals if game.team_id == team_id
         games += 1 if game.team_id == team_id
       end
@@ -98,12 +113,14 @@ class StatTracker
         games += 1 if game.team_id == team_id && game.hoa == filter
       end
     end
+    # use average module for consistency
     (goals.to_f / games).round(2)
   end
 
   def goals_against_average(team_id)
     goals, games = 0, 0
     @games_data.each do |game|
+      # push this logic to Games class & call it here?
       if game.home_team_id == team_id
         goals += game.away_goals
         games += 1
@@ -112,12 +129,13 @@ class StatTracker
         games += 1
       end
     end
+    # use average module for consistency
     (goals.to_f / games).round(2)
   end
 
   def best_offense
     @teams_data.max_by do |team|
-      goals_against_average(team.team_id)
+      goals_for_average(team.team_id)
     end.teamname
   end
 
@@ -129,13 +147,13 @@ class StatTracker
 
   def best_defense
     @teams_data.min_by do |team|
-      goals_for_average(team.team_id)
+      goals_against_average(team.team_id)
     end.teamname
   end
 
   def worst_defense
     @teams_data.max_by do |team|
-      goals_for_average(team.team_id)
+      goals_against_average(team.team_id)
     end.teamname
   end
 
