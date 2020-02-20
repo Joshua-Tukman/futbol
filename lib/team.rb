@@ -1,4 +1,4 @@
-require './lib/data_loadable.rb'
+require_relative 'data_loadable'
 
 class Team
   extend DataLoadable

@@ -50,16 +50,21 @@ class StatTrackerTest < Minitest::Test
     assert_equal 5, @stat_tracker.biggest_blowout
   end
 
+  def test_it_calculates_average
+    assert_equal 2.0, @stat_tracker.average(4, 2)
+    assert_equal 9.0, @stat_tracker.average(27, 3)
+  end
+
   def test_it_finds_percentage_home_wins
-    assert_equal 38.43, @stat_tracker.percentage_home_wins
+    assert_equal 0.38, @stat_tracker.percentage_home_wins
   end
 
   def test_it_finds_percentage_visitor_wins
-    assert_equal 39.49, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.39, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_finds_percentage_of_ties
-    assert_equal 22.08, @stat_tracker.percentage_ties
+    assert_equal 0.22, @stat_tracker.percentage_ties
   end
 
   def test_it_counts_games_by_season
@@ -105,6 +110,50 @@ class StatTrackerTest < Minitest::Test
     assert_equal expected, @stat_tracker.average_goals_by_season
   end
 
+  def test_it_calculates_goals_for_per_team
+    assert_equal 2.18, @stat_tracker.goals_for_average(2)
+    assert_equal 2.10, @stat_tracker.goals_for_average(2, "away")
+    assert_equal 2.28, @stat_tracker.goals_for_average(2, "home")
+    assert_equal 1.94, @stat_tracker.goals_for_average(1)
+    assert_equal 1.90, @stat_tracker.goals_for_average(1, "away")
+    assert_equal 1.97, @stat_tracker.goals_for_average(1, "home")
+  end
 
+  def test_it_calculates_goals_against_per_team
+    assert_equal 2.0, @stat_tracker.goals_against_average(1)
+    assert_equal 2.25, @stat_tracker.goals_against_average(2)
 
+  end
+
+  def test_it_calculates_best_offense
+    assert_equal "Seattle Sounders FC", @stat_tracker.best_offense
+  end
+
+  def test_it_calculates_worst_offense
+    assert_equal "Atlanta United", @stat_tracker.worst_offense
+  end
+
+  def test_it_calculates_best_defense
+    assert_equal "Atlanta United", @stat_tracker.best_defense
+  end
+
+  def test_it_calculates_worst_defense
+    assert_equal "Seattle Sounders FC", @stat_tracker.worst_defense
+  end
+
+  def test_it_calculates_highest_scoring_visitor
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_calculates_highest_scoring_home_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_calculates_lowest_scoring_visitor
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_calculates_lowest_scoring_home_team
+    assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
+  end
 end
