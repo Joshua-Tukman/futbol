@@ -53,7 +53,7 @@ class StatTracker
 
   def count_of_games_by_season
     Game.all.reduce({}) do |games_count, game|
-      if !games_count[game.season.to_s]
+      if games_count[game.season.to_s].nil?
         games_count[game.season.to_s] = 1
       else
         games_count[game.season.to_s] += 1
@@ -70,7 +70,7 @@ class StatTracker
 
   def total_goals_per_season
     Game.all.reduce({}) do |season_goals, game|
-      if !season_goals[game.season.to_s]
+      if season_goals[game.season.to_s].nil?
         season_goals[game.season.to_s] = game.total_score
       else
         season_goals[game.season.to_s] += game.total_score
