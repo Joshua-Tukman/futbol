@@ -164,7 +164,7 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    expected = {2 => 0.33, 1 => 0.50}
+    expected = {2 => 0.33333, 1 => 0.50}
     assert_equal expected, stat_tracker.home_win_percentage
   end
 
