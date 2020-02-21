@@ -4,7 +4,7 @@ require_relative 'hashable.rb'
 class GameTeams
   extend DataLoadable
   extend Hashable
-  
+
   @@all_game_teams_data = nil
 
   def self.load_csv(file_path)
@@ -20,7 +20,7 @@ class GameTeams
     grouped = grouped
     grouped.map {|team, data| grouped[team] = data.map(&:result)}
     grouped.map do |team, data|
-      grouped[team] = (data.count("WIN")/data.size.to_f).round(2)
+      grouped[team] = (data.count("WIN")/data.size.to_f).round(5)
     end
     grouped
   end
