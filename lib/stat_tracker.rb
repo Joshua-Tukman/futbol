@@ -1,8 +1,10 @@
 require_relative 'game.rb'
 require_relative 'team.rb'
 require_relative 'game_teams.rb'
+require_relative 'hashable.rb'
 
 class StatTracker
+  include Hashable
 
   def self.from_csv(locations)
     Team.load_csv(locations[:teams])
@@ -107,19 +109,15 @@ class StatTracker
     home_win_percentage.each do |team, percent|
       home_win_percentage[team] = (percent - away_win_percentage[team])
     end
-    best_fans_team_id = home_win_percentage.key(home_win_percentage.values.max)
-    @teams_data.select {|team| team.team_id == best_fans_team_id}[0].teamname
+    best_fans_team_id = key_with_max_value(home_win_percentage)
+    Team.names_by_id[best_fans_team_id]
   end
 
   def worst_fans
     away_better_record = away_win_percentage.select do |team_id, v|
       away_win_percentage[team_id] > home_win_percentage[team_id]
     end
-    teams_with_worst_fans = []
-    away_better_record.each do |team_id, win_percent|
-      @teams_data.each {|team| teams_with_worst_fans << team if team.team_id == team_id}
-    end
-    teams_with_worst_fans
+    away_better_record.keys.map {|id| Team.names_by_id[id]}
   end
 
 end
