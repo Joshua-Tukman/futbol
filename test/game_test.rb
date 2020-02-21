@@ -101,4 +101,9 @@ class GamesTest < Minitest::Test
     assert_equal expected, Game.total_goals_per_season
   end
 
+  def test_it_calculates_goals_against_per_team
+    assert_equal 2.0, Game.goals_against_average(1)
+    assert_equal 2.25, Game.goals_against_average(2)
+  end
+
 end

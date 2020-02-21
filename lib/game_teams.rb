@@ -6,7 +6,7 @@ class GameTeams
   extend DataLoadable
   extend Hashable
   extend Calculable
-  
+
   @@all_game_teams_data = nil
 
   def self.load_csv(file_path)

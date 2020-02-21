@@ -1,7 +1,10 @@
 require_relative 'data_loadable'
+require_relative 'calculable'
 
 class Game
   extend DataLoadable
+  extend Calculable
+
   @@all_games = nil
 
   def self.load_csv(file_path)
@@ -35,6 +38,21 @@ class Game
     games_by_total_goals.each do |season, games|
       games_by_total_goals[season] = games.sum(&:total_score)
     end
+  end
+
+  def self.goals_against_average(team_id)
+    goals = 0
+    games = 0
+    @@all_games.each do |game|
+      if game.home_team_id == team_id
+        goals += game.away_goals
+        games += 1
+      elsif game.away_team_id == team_id
+        goals += game.home_goals
+        games += 1
+      end
+    end
+    average(goals, games).round(2)
   end
 
   attr_reader :game_id,

@@ -103,19 +103,7 @@ class StatTracker
   end
 
   def goals_against_average(team_id)
-    goals = 0
-    games = 0
-    @games_data.each do |game|
-      # push this logic to Games class & call it here?
-      if game.home_team_id == team_id
-        goals += game.away_goals
-        games += 1
-      elsif game.away_team_id == team_id
-        goals += game.home_goals
-        games += 1
-      end
-    end
-    average(goals, games).round(2)
+    Game.goals_against_average(team_id)
   end
 
   def best_offense
