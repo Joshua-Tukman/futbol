@@ -84,10 +84,11 @@ class StatTracker
   end
 
   def best_fans
-    home_win_percentage.each do |team, percent|
-      home_win_percentage[team] = (percent - away_win_percentage[team])
+    diff_percentage = {}
+    home_win_percentage.each do |team_id, percent|
+      diff_percentage[team_id] = (percent - away_win_percentage[team_id])
     end
-    best_fans_team_id = key_with_max_value(home_win_percentage)
+    best_fans_team_id = key_with_max_value(diff_percentage)
     Team.names_by_id[best_fans_team_id]
   end
 

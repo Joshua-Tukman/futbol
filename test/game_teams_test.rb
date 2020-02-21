@@ -85,7 +85,7 @@ class GameTeamsTest < Minitest::Test
 
   def test_it_can_calculate_win_percentage_for_all_teams_at_home
     GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
-    expected = {2 => 0.33, 1 => 0.50}
+    expected = {2 => 0.33333, 1 => 0.50}
     assert_equal expected, GameTeams.win_percentage_hoa("home")
   end
 
