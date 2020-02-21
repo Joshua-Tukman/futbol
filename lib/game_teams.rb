@@ -1,7 +1,10 @@
-require_relative 'data_loadable'
+require_relative 'data_loadable.rb'
+require_relative 'hashable.rb'
 
 class GameTeams
   extend DataLoadable
+  extend Hashable
+  
   @@all_game_teams_data = nil
 
   def self.load_csv(file_path)
@@ -11,6 +14,25 @@ class GameTeams
 
   def self.all
     @@all_game_teams_data
+  end
+
+  def self.win_percentage(grouped = @@all_game_teams_data.group_by(&:team_id))
+    grouped = grouped
+    grouped.map {|team, data| grouped[team] = data.map(&:result)}
+    grouped.map do |team, data|
+      grouped[team] = (data.count("WIN")/data.size.to_f).round(2)
+    end
+    grouped
+  end
+
+  def self.winningest_team_id
+    key_with_max_value(self.win_percentage)
+  end
+
+  def self.win_percentage_hoa(hoa)
+    by_hoa = @@all_game_teams_data.group_by(&:hoa)
+    by_hoa.map {|hoa, data| by_hoa[hoa] = data.group_by(&:team_id)}
+    self.win_percentage(by_hoa[hoa])
   end
 
   attr_reader :game_id,

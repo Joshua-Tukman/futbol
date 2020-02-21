@@ -1,0 +1,11 @@
+game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPlayOpportunities,powerPlayGoals,faceOffWinPercentage,giveaways,takeaways
+2015020671,2,home,TIE,SO,Jack Capuano,1,12,29,23,3,0,52.2,15,12
+2015020261,2,home,WIN,REG,Jack Capuano,3,8,36,6,4,1,35.2,13,15
+2017021260,2,away,LOSS,OT,Doug Weight,2,10,13,2,2,1,50.9,9,3
+2015020355,2,home,TIE,REG,Jack Capuano,3,7,49,6,3,1,63,13,7
+2017030111,1,away,LOSS,REG,John Hynes,2,7,36,2,2,1,47.9,6,4
+2017030112,1,away,TIE,REG,John Hynes,3,11,36,10,3,0,34.4,5,4
+2017030113,1,home,WIN,REG,John Hynes,3,10,33,64,7,1,55,10,10
+2017030114,1,home,LOSS,REG,John Hynes,1,7,25,12,6,1,59.1,11,12
+2017030115,1,away,LOSS,REG,John Hynes,1,6,22,10,1,0,40,8,5
+2015030111,2,away,WIN,REG,Jack Capuano,3,6,40,8,2,1,51.5,10,2

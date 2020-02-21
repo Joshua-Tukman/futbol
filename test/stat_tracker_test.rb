@@ -76,7 +76,6 @@ class StatTrackerTest < Minitest::Test
       '20162017' => 82,
       '20172018' => 84
     }
-
     assert_equal expected, @stat_tracker.count_of_games_by_season
   end
 
@@ -93,7 +92,6 @@ class StatTrackerTest < Minitest::Test
       '20162017' => 357,
       '20172018' => 399
     }
-
     assert_equal expected, @stat_tracker.total_goals_per_season
   end
 
@@ -106,8 +104,95 @@ class StatTrackerTest < Minitest::Test
       '20162017' => 4.35,
       '20172018' => 4.75
     }
-
     assert_equal expected, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_can_count_the_number_of_teams
+    assert_equal 2, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_determine_the_winningest_team
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "Seattle Sounders FC", stat_tracker.winningest_team
+  end
+
+  def test_it_can_determine_which_team_has_the_best_fans
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "Atlanta United", stat_tracker.best_fans
+  end
+
+  def test_it_can_select_all_teams_with_better_away_records_than_home_records
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal ["Seattle Sounders FC"], stat_tracker.worst_fans
+  end
+
+  def test_it_can_calculate_win_percentage_for_home_teams
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected = {2 => 0.33, 1 => 0.50}
+    assert_equal expected, stat_tracker.home_win_percentage
+  end
+
+  def test_it_can_calculate_win_percentage_for_away_teams
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected = {2 => 0.50, 1 => 0.0}
+    assert_equal expected, stat_tracker.away_win_percentage
+  end
+
+  def test_it_can_return_key_with_max_value
+    games_by_season = {
+      '20122013' => 218,
+      '20132014' => 348,
+      '20142015' => 343,
+      '20152016' => 348,
+      '20162017' => 357,
+      '20172018' => 399
+    }
+    assert_equal '20172018', @stat_tracker.key_with_max_value(games_by_season)
   end
 
   def test_it_calculates_goals_for_per_team
@@ -122,7 +207,6 @@ class StatTrackerTest < Minitest::Test
   def test_it_calculates_goals_against_per_team
     assert_equal 2.0, @stat_tracker.goals_against_average(1)
     assert_equal 2.25, @stat_tracker.goals_against_average(2)
-
   end
 
   def test_it_calculates_best_offense

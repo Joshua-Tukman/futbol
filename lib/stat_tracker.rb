@@ -1,11 +1,13 @@
 require_relative 'game.rb'
 require_relative 'team.rb'
 require_relative 'game_teams.rb'
+require_relative 'hashable.rb'
 require_relative 'calculable'
 
 class StatTracker
+  include Hashable
   include Calculable
-
+  
   def self.from_csv(locations)
     Team.load_csv(locations[:teams])
     Game.load_csv(locations[:games])
@@ -74,7 +76,6 @@ class StatTracker
   def total_goals_per_season
     # Push all this logic to class method in Game & call that here?
     @games_data.reduce({}) do |season_goals, game|
-
       if season_goals[game.season.to_s].nil?
         season_goals[game.season.to_s] = game.total_score
       else
@@ -92,6 +93,37 @@ class StatTracker
     end
     avg_goals
   end
+
+  def count_of_teams
+    @teams_data.size
+  end
+
+  def winningest_team
+    Team.names_by_id[GameTeams.winningest_team_id]
+  end
+
+  def home_win_percentage
+    GameTeams.win_percentage_hoa("home")
+  end
+
+  def away_win_percentage
+    GameTeams.win_percentage_hoa("away")
+  end
+
+  def best_fans
+    home_win_percentage.each do |team, percent|
+      home_win_percentage[team] = (percent - away_win_percentage[team])
+    end
+    best_fans_team_id = key_with_max_value(home_win_percentage)
+    Team.names_by_id[best_fans_team_id]
+  end
+
+  def worst_fans
+    away_better_record = away_win_percentage.select do |team_id, v|
+      away_win_percentage[team_id] > home_win_percentage[team_id]
+    end
+    away_better_record.keys.map {|id| Team.names_by_id[id]}
+  end 
 
   def goals_for_average(team_id, filter = nil)
     goals = 0
