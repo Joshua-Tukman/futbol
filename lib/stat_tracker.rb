@@ -92,25 +92,28 @@ class StatTracker
   end
 
   def winningest_team
-    winningest_team_id = GameTeams.win_percentage.key(GameTeams.win_percentage.values.max)
-    @teams_data.select {|team| team.team_id == winningest_team_id}[0].teamname
+    Team.names_by_id[GameTeams.winningest_team_id]
+  end
+
+  def home_win_percentage
+    GameTeams.win_percentage_hoa("home")
+  end
+
+  def away_win_percentage
+    GameTeams.win_percentage_hoa("away")
   end
 
   def best_fans
-    home_win_percent = GameTeams.win_percentage_hoa("home")
-    away_win_percent = GameTeams.win_percentage_hoa("away")
-    home_win_percent.each do |team, percent|
-      home_win_percent[team] = (percent - away_win_percent[team])
+    home_win_percentage.each do |team, percent|
+      home_win_percentage[team] = (percent - away_win_percentage[team])
     end
-    best_fans_team_id = home_win_percent.key(home_win_percent.values.max)
+    best_fans_team_id = home_win_percentage.key(home_win_percentage.values.max)
     @teams_data.select {|team| team.team_id == best_fans_team_id}[0].teamname
   end
 
   def worst_fans
-    home_win_percent = GameTeams.win_percentage_hoa("home")
-    away_win_percent = GameTeams.win_percentage_hoa("away")
-    away_better_record = away_win_percent.select do |k,v|
-      away_win_percent[k] > home_win_percent[k]
+    away_better_record = away_win_percentage.select do |team_id, v|
+      away_win_percentage[team_id] > home_win_percentage[team_id]
     end
     teams_with_worst_fans = []
     away_better_record.each do |team_id, win_percent|
