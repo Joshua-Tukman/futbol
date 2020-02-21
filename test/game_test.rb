@@ -26,8 +26,8 @@ class GamesTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    assert_equal 2017030113, @game.game_id
-    assert_equal 20172018, @game.season
+    assert_equal '2017030113', @game.game_id
+    assert_equal '20172018', @game.season
     assert_equal 'Postseason', @game.type
     assert_equal '4/16/18', @game.date_time
     assert_equal 14, @game.away_team_id
@@ -40,8 +40,8 @@ class GamesTest < Minitest::Test
 
   def test_it_can_create_games_from_csv
     assert_instance_of Game, @new_game
-    assert_equal 2013020521, @new_game.game_id
-    assert_equal 20132014, @new_game.season
+    assert_equal '2013020521', @new_game.game_id
+    assert_equal '20132014', @new_game.season
     assert_equal 'Regular Season', @new_game.type
     assert_equal '12/19/13', @new_game.date_time
     assert_equal 9, @new_game.away_team_id
@@ -63,6 +63,42 @@ class GamesTest < Minitest::Test
 
   def test_it_finds_margin_of_victory
     assert_equal 1, @new_game.margin_of_victory
+  end
+
+  def test_it_can_return_number_of_home_wins
+    assert_equal 181, Game.home_wins
+  end
+
+  def test_it_can_return_number_of_visitor_wins
+    assert_equal 186, Game.visitor_wins
+  end
+
+  def test_it_can_return_number_of_ties
+    assert_equal 104, Game.ties
+  end
+
+  def test_it_can_return_count_of_games_by_season
+    expected = {
+      '20122013' => 51,
+      '20132014' => 82,
+      '20142015' => 85,
+      '20152016' => 87,
+      '20162017' => 82,
+      '20172018' => 84
+    }
+    assert_equal expected, Game.count_of_games_by_season
+  end
+
+  def test_it_can_return_total_goals_per_season
+    expected = {
+      '20122013' => 218,
+      '20132014' => 348,
+      '20142015' => 343,
+      '20152016' => 348,
+      '20162017' => 357,
+      '20172018' => 399
+    }
+    assert_equal expected, Game.total_goals_per_season
   end
 
 end
