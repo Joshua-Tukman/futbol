@@ -45,4 +45,12 @@ class TeamTest < Minitest::Test
     assert_equal 2, Team.all.size
   end
 
+  def test_it_can_group_team_names_by_id
+    expected = {
+      1 => "Atlanta United",
+      2 => "Seattle Sounders FC"
+    }
+    assert_equal expected, Team.names_by_id
+  end
+
 end
