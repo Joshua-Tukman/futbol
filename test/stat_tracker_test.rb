@@ -145,9 +145,49 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-  
-    actual = stat_tracker.worst_fans.map(&:teamname)
-    assert_equal ["Seattle Sounders FC"], actual
+    assert_equal ["Seattle Sounders FC"], stat_tracker.worst_fans
+  end
+
+  def test_it_can_calculate_win_percentage_for_home_teams
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected = {2 => 0.33, 1 => 0.50}
+    assert_equal expected, stat_tracker.home_win_percentage
+  end
+
+  def test_it_can_calculate_win_percentage_for_away_teams
+    game_path = './test/fixtures/games_smaller_sample.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/game_teams_smaller_sample.csv'
+
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    expected = {2 => 0.50, 1 => 0.0}
+    assert_equal expected, stat_tracker.away_win_percentage
+  end
+
+  def test_it_can_return_key_with_max_value
+    games_by_season = {
+      '20122013' => 218,
+      '20132014' => 348,
+      '20142015' => 343,
+      '20152016' => 348,
+      '20162017' => 357,
+      '20172018' => 399
+    }
+    assert_equal '20172018', @stat_tracker.key_with_max_value(games_by_season)
   end
 
 end

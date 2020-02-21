@@ -74,20 +74,37 @@ class GameTeamsTest < Minitest::Test
 
   def test_it_can_calculate_win_percentage_for_all_teams
     GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
-    expected = {2 => 40.0, 1 => 20.0}
+    expected = {2 => 0.40, 1 => 0.20}
     assert_equal expected, GameTeams.win_percentage
+  end
+
+  def test_it_can_return_winningest_team_id
+    GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
+    assert_equal 2, GameTeams.winningest_team_id
   end
 
   def test_it_can_calculate_win_percentage_for_all_teams_at_home
     GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
-    expected = {2 => 33.33, 1 => 50.0}
+    expected = {2 => 0.33, 1 => 0.50}
     assert_equal expected, GameTeams.win_percentage_hoa("home")
   end
 
   def test_it_can_calculate_win_percentage_for_all_teams_away
     GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
-    expected = {2 => 50.0, 1 => 0.0}
+    expected = {2 => 0.50, 1 => 0.0}
     assert_equal expected, GameTeams.win_percentage_hoa("away")
+  end
+
+  def test_it_can_return_key_with_max_value
+    games_by_season = {
+      '20122013' => 218,
+      '20132014' => 348,
+      '20142015' => 343,
+      '20152016' => 348,
+      '20162017' => 357,
+      '20172018' => 399
+    }
+    assert_equal '20172018', GameTeams.key_with_max_value(games_by_season)
   end
 
 end
