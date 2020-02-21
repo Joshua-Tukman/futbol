@@ -193,6 +193,7 @@ class StatTrackerTest < Minitest::Test
       '20172018' => 399
     }
     assert_equal '20172018', @stat_tracker.key_with_max_value(games_by_season)
+  end
 
   def test_it_calculates_goals_for_per_team
     assert_equal 2.18, @stat_tracker.goals_for_average(2)
