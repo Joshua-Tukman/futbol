@@ -7,7 +7,7 @@ require_relative 'calculable'
 class StatTracker
   include Hashable
   include Calculable
-  
+
   def self.from_csv(locations)
     Team.load_csv(locations[:teams])
     Game.load_csv(locations[:games])
@@ -111,10 +111,11 @@ class StatTracker
   end
 
   def best_fans
+    diff_percentage = {}
     home_win_percentage.each do |team, percent|
-      home_win_percentage[team] = (percent - away_win_percentage[team])
+      diff_percentage[team] = (percent - away_win_percentage[team])
     end
-    best_fans_team_id = key_with_max_value(home_win_percentage)
+    best_fans_team_id = key_with_max_value(diff_percentage)
     Team.names_by_id[best_fans_team_id]
   end
 
@@ -123,7 +124,7 @@ class StatTracker
       away_win_percentage[team_id] > home_win_percentage[team_id]
     end
     away_better_record.keys.map {|id| Team.names_by_id[id]}
-  end 
+  end
 
   def goals_for_average(team_id, filter = nil)
     goals = 0
