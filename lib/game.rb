@@ -40,6 +40,14 @@ class Game
     end
   end
 
+  def self.average_goals_by_season
+    avg_goals = {}
+    self.total_goals_per_season.each do |season, total_goals|
+      avg_goals[season] = average(total_goals, self.count_of_games_by_season[season]).round(2)
+    end
+    avg_goals
+  end
+
   def self.goals_against_average(team_id)
     goals = 0
     games = 0

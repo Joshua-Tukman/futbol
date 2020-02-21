@@ -106,4 +106,16 @@ class GamesTest < Minitest::Test
     assert_equal 2.25, Game.goals_against_average(2)
   end
 
+  def test_it_calculates_average_goals_per_season
+    expected = {
+      '20122013' => 4.27,
+      '20132014' => 4.24,
+      '20142015' => 4.04,
+      '20152016' => 4.0,
+      '20162017' => 4.35,
+      '20172018' => 4.75
+    }
+    assert_equal expected, Game.average_goals_by_season
+  end
+
 end

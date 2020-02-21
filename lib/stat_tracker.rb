@@ -50,8 +50,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    total_goals = @games_data.sum(&:total_score)
-    average(total_goals, @games_data.length).round(2)
+    average(@games_data.sum(&:total_score), @games_data.length).round(2)
   end
 
   def total_goals_per_season
@@ -59,11 +58,7 @@ class StatTracker
   end
 
   def average_goals_by_season
-    avg_goals = {}
-    total_goals_per_season.each do |season, total_goals|
-      avg_goals[season] = average(total_goals, count_of_games_by_season[season]).round(2)
-    end
-    avg_goals
+    Game.average_goals_by_season
   end
 
   def count_of_teams
