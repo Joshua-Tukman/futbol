@@ -37,6 +37,25 @@ class GameTeams
     self.win_percentage(by_hoa[hoa])
   end
 
+  def self.best_fans_team_id
+    home_win_percentage = self.win_percentage_hoa("home")
+    away_win_percentage = self.win_percentage_hoa("away")
+    diff_percentage = {}
+
+    home_win_percentage.each do |team_id, percent|
+      diff_percentage[team_id] = (percent - away_win_percentage[team_id])
+    end
+    key_with_max_value(diff_percentage)
+  end
+
+  def self.better_away_records
+    home_win_percentage = self.win_percentage_hoa("home")
+    away_win_percentage = self.win_percentage_hoa("away")
+    away_win_percentage.select do |team_id, v|
+      away_win_percentage[team_id] > home_win_percentage[team_id]
+    end.keys
+  end
+
   def self.goals_for_average(team_id, hoa)
     goals = 0
     games = 0

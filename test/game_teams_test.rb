@@ -116,4 +116,14 @@ class GameTeamsTest < Minitest::Test
     assert_equal 1.97, GameTeams.goals_for_average(1, "home")
   end
 
+  def test_it_can_return_the_team_id_with_the_best_fans
+    GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
+    assert_equal 1, GameTeams.best_fans_team_id
+  end
+
+  def test_it_selects_team_ids_with_better_away_records_than_home
+    GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
+    assert_equal [2], GameTeams.better_away_records
+  end
+
 end
