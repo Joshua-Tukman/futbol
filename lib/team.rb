@@ -14,8 +14,10 @@ class Team
   end
 
   def self.names_by_id
-    by_id = @@all_teams.group_by(&:team_id)
-    by_id.each {|team_id, team_arr| by_id[team_id] = team_arr[0].teamname}
+    @@all_teams.reduce({}) do |by_id, team|
+      by_id[team.team_id] = team.teamname
+      by_id
+    end
   end
 
   attr_reader :team_id,
