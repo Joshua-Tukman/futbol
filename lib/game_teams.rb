@@ -1,10 +1,12 @@
 require_relative 'data_loadable.rb'
 require_relative 'hashable.rb'
+require_relative 'calculable.rb'
 
 class GameTeams
   extend DataLoadable
   extend Hashable
-
+  extend Calculable
+  
   @@all_game_teams_data = nil
 
   def self.load_csv(file_path)
@@ -33,6 +35,23 @@ class GameTeams
     by_hoa = @@all_game_teams_data.group_by(&:hoa)
     by_hoa.map {|hoa, data| by_hoa[hoa] = data.group_by(&:team_id)}
     self.win_percentage(by_hoa[hoa])
+  end
+
+  def self.goals_for_average(team_id, hoa)
+    goals = 0
+    games = 0
+    if hoa.nil?
+      @@all_game_teams_data.each do |game|
+        goals += game.goals if game.team_id == team_id
+        games += 1 if game.team_id == team_id
+      end
+    else
+      @@all_game_teams_data.each do |game|
+        goals += game.goals if game.team_id == team_id && game.hoa == hoa
+        games += 1 if game.team_id == team_id && game.hoa == hoa
+      end
+    end
+    average(goals, games).round(2)
   end
 
   attr_reader :game_id,

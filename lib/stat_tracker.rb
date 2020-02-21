@@ -59,7 +59,6 @@ class StatTracker
   end
 
   def average_goals_by_season
-    # refactor with reduce?
     avg_goals = {}
     total_goals_per_season.each do |season, total_goals|
       avg_goals[season] = average(total_goals, count_of_games_by_season[season]).round(2)
@@ -99,22 +98,8 @@ class StatTracker
     away_better_record.keys.map {|id| Team.names_by_id[id]}
   end
 
-  def goals_for_average(team_id, filter = nil)
-    goals = 0
-    games = 0
-    if filter.nil?
-      @game_teams_data.each do |game|
-        # push this logic to Games Teams class & call it here?
-        goals += game.goals if game.team_id == team_id
-        games += 1 if game.team_id == team_id
-      end
-    else
-      @game_teams_data.each do |game|
-        goals += game.goals if game.team_id == team_id && game.hoa == filter
-        games += 1 if game.team_id == team_id && game.hoa == filter
-      end
-    end
-    average(goals, games).round(2)
+  def goals_for_average(team_id, hoa = nil)
+    GameTeams.goals_for_average(team_id, hoa)
   end
 
   def goals_against_average(team_id)

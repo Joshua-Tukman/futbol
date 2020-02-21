@@ -107,4 +107,13 @@ class GameTeamsTest < Minitest::Test
     assert_equal '20172018', GameTeams.key_with_max_value(games_by_season)
   end
 
+  def test_it_calculates_goals_for_per_team
+    assert_equal 2.18, GameTeams.goals_for_average(2, nil)
+    assert_equal 2.10, GameTeams.goals_for_average(2, "away")
+    assert_equal 2.28, GameTeams.goals_for_average(2, "home")
+    assert_equal 1.94, GameTeams.goals_for_average(1, nil)
+    assert_equal 1.90, GameTeams.goals_for_average(1, "away")
+    assert_equal 1.97, GameTeams.goals_for_average(1, "home")
+  end
+
 end
