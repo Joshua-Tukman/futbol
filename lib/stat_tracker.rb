@@ -8,17 +8,20 @@ class StatTracker
     Team.load_csv(locations[:teams])
     Game.load_csv(locations[:games])
     GameTeams.load_csv(locations[:game_teams])
-    StatTracker.new(Game.all, Team.all, GameTeams.all)
+    Season.create_seasons(Game.all, GameTeams.all)
+    StatTracker.new(Game.all, Team.all, GameTeams.all, Season.all)
   end
 
   attr_reader :games_data,
               :teams_data,
-              :game_teams_data
+              :game_teams_data,
+              :season_data
 
-  def initialize(games_data, teams_data, game_teams_data)
+  def initialize(games_data, teams_data, game_teams_data, season_data)
     @games_data = games_data
     @teams_data = teams_data
     @game_teams_data = game_teams_data
+    @season_data = season_data
   end
 
   def highest_total_score
