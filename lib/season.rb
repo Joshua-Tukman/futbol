@@ -8,20 +8,27 @@ class Season
     @@all_seasons
   end
 
+  def self.find_all_seasons(game_data)
+    game_data.map { |game| game.season }.uniq
+  end
+
+  def self.find_season_games(game_data, season)
+    game_data.select { |game| game.season == season }
+  end
+
+  def self.find_season_game_ids(game_data)
+    game_data.map { |game| game.game_id }
+  end
+
+  def self.find_season_game_teams(game_teams_data, season_game_data, season)
+    game_teams_data.select { |game_team| self.find_season_game_ids(season_game_data).include?(game_team.game_id.to_s) }
+  end
+
   def self.create_seasons(game_data, game_teams_data)
-    all_seasons = []
-    season_game_data = []
-    season_game_teams_data = []
-    game_data.each do |game|
-      all_seasons << game.season if !all_seasons.include?(game.season)
-    end
+    all_seasons = self.find_all_seasons(game_data)
     all_seasons.each do |season|
-      game_data.each do |game|
-        season_game_data << game if game.season == season
-      end
-      game_teams_data.each do |game_team|
-        season_game_teams_data << game_team if season_game_data.include?(game_team.game_id)
-      end
+      season_game_data = self.find_season_games(game_data, season)
+      season_game_teams_data = self.find_season_game_teams(game_teams_data, season_game_data, season)
       @@all_seasons << new(season, season_game_data, season_game_teams_data)
     end
   end
