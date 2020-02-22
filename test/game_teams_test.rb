@@ -107,4 +107,23 @@ class GameTeamsTest < Minitest::Test
     assert_equal '20172018', GameTeams.key_with_max_value(games_by_season)
   end
 
+  def test_it_calculates_goals_for_per_team
+    assert_equal 2.18, GameTeams.goals_for_average(2, nil)
+    assert_equal 2.10, GameTeams.goals_for_average(2, "away")
+    assert_equal 2.28, GameTeams.goals_for_average(2, "home")
+    assert_equal 1.94, GameTeams.goals_for_average(1, nil)
+    assert_equal 1.90, GameTeams.goals_for_average(1, "away")
+    assert_equal 1.97, GameTeams.goals_for_average(1, "home")
+  end
+
+  def test_it_can_return_the_team_id_with_the_best_fans
+    GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
+    assert_equal 1, GameTeams.best_fans_team_id
+  end
+
+  def test_it_selects_team_ids_with_better_away_records_than_home
+    GameTeams.load_csv('./test/fixtures/game_teams_smaller_sample.csv')
+    assert_equal [2], GameTeams.better_away_records
+  end
+
 end
