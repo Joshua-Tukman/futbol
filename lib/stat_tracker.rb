@@ -128,4 +128,20 @@ class StatTracker
     @teams_data.min_by {|team| goals_for_average(team.team_id, "home")}.teamname
   end
 
+  def most_accurate_team(year)
+    Season.most_accurate_team(year)
+  end
+
+  def least_accurate_team(year)
+    Season.least_accurate_team(year)
+  end
+
+  def most_tackles(year)
+    Season.most_tackles(year)
+  end
+
+  def fewest_tackles(year)
+    Season.fewest_tackles(year)
+  end
+
 end

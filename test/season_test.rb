@@ -24,6 +24,12 @@ class SeasonTest < Minitest::Test
     assert_equal expected, Season.find_all_seasons(@stat_tracker.games_data)
   end
 
+  def test_it_finds_single_seasons
+    expected = @stat_tracker.season_data[0]
+
+    assert_equal expected, Season.find_single_season("20172018")
+  end
+
   def test_it_finds_season_games
     expected = [@stat_tracker.games_data[3], @stat_tracker.games_data[5]]
 
@@ -66,9 +72,25 @@ class SeasonTest < Minitest::Test
   end
 
   def test_it_creates_season_data_report
-    expected =  {1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4}}}
+    expected =  {1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4, :win_percentage=>0.5, :shot_accuracy=>4.25}}}
 
     assert_equal expected, @season.season_data_report
+  end
+
+  def test_it_finds_most_accurate_team
+    assert_equal "Atlanta United", Season.most_accurate_team("20172018")
+  end
+
+  def test_it_finds_least_accurate_team
+    assert_equal "Atlanta United", Season.least_accurate_team("20172018")
+  end
+
+  def test_it_finds_team_with_most_tackles
+    assert_equal "Atlanta United", Season.most_tackles("20172018")
+  end
+
+  def test_it_finds_team_with_least_tackles
+    assert_equal "Atlanta United", Season.fewest_tackles("20172018")
   end
 
 end
