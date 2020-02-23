@@ -56,36 +56,32 @@ class Season
       teamid = game_team.team_id
       regpost = game.type
       outcome = game_team.result
-      win = outcome == "WIN" ? 1 : 0
-      tackle = game_team.tackles
-      shot = game_team.shots
-      goals = game_team.goals
 
       if season_report[teamid].nil?
         season_report[teamid] = {
-                                  regpost => {
-                                      wins: win,
-                                      games: 1,
-                                      tackles: tackle,
-                                      shots: shot,
-                                      goals: goals
-                                    }
-                                  }
+          regpost => {
+              wins: outcome == "WIN" ? 1 : 0,
+              games: 1,
+              tackles: game_team.tackles,
+              shots: game_team.shots,
+              goals: game_team.goals
+            }
+          }
 
       elsif season_report[teamid][regpost].nil?
          season_report[teamid][regpost] = {
-                                            wins: win,
-                                            games: 1,
-                                            tackles: tackle,
-                                            shots: shot,
-                                            goals: goals
-                                            }
+            wins: outcome == "WIN" ? 1 : 0,
+            games: 1,
+            tackles: game_team.tackles,
+            shots: game_team.shots,
+            goals: game_team.goals
+          }
       else
-        season_report[teamid][regpost][:wins] += win
+        season_report[teamid][regpost][:wins] += outcome == "WIN" ? 1 : 0
         season_report[teamid][regpost][:games] += 1
-        season_report[teamid][regpost][:tackles] += tackle
-        season_report[teamid][regpost][:shots] += shot
-        season_report[teamid][regpost][:goals] += goals
+        season_report[teamid][regpost][:tackles] += game_team.tackles
+        season_report[teamid][regpost][:shots] += game_team.shots
+        season_report[teamid][regpost][:goals] += game_team.goals
       end
     end
     season_report

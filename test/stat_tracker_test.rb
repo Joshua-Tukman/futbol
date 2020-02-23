@@ -17,6 +17,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_exists
+    require "pry"; binding.pry
     assert_instance_of StatTracker, @stat_tracker
   end
 
@@ -42,7 +43,7 @@ class StatTrackerTest < Minitest::Test
     assert_equal 6, @stat_tracker.season_data.size
     assert_instance_of Season, @stat_tracker.season_data.sample
   end
-  
+
   def test_it_finds_highest_total_score
     assert_equal 9, @stat_tracker.highest_total_score
   end
