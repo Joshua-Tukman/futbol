@@ -59,6 +59,12 @@ class SeasonTest < Minitest::Test
     assert_equal expected_game_team_data.size, @season.game_teams_data.size
   end
 
+  def test_it_finds_game_parent
+    expected = @stat_tracker.games_data[0]
+
+    assert_equal expected.game_id, @season.find_game_parent(2017030113).game_id
+  end
+
   def test_it_creates_season_data_report
     expected =  {1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4}}}
 

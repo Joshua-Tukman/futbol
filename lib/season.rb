@@ -42,13 +42,17 @@ class Season
     @season_name = season_name
     @game_data = game_data
     @game_teams_data = game_teams_data
-    @season_data_report ||= create_season_data_report(season_name, game_data, game_teams_data)
+    @season_data_report ||= create_season_data_report
   end
 
-  def create_season_data_report(season_name, game_data, game_teams_data)
+  def find_game_parent(game_id)
+    @game_data.find { |game| game.game_id == game_id.to_s}
+  end
+
+  def create_season_data_report
     season_report = {}
-    game_teams_data.each do |game_team|
-      game = game_data.find { |game| game.game_id == game_team.game_id.to_s}
+    @game_teams_data.each do |game_team|
+      game = find_game_parent(game_team.game_id)
       teamid = game_team.team_id
       regpost = game.type
       outcome = game_team.result
