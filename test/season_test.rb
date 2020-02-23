@@ -58,5 +58,11 @@ class SeasonTest < Minitest::Test
     assert_equal expected_game_data.size, @season.game_data.size
     assert_equal expected_game_team_data.size, @season.game_teams_data.size
   end
-  
+
+  def test_it_creates_season_data_report
+    expected =  {1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4}}}
+
+    assert_equal expected, @season.season_data_report
+  end
+
 end

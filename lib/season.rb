@@ -35,12 +35,57 @@ class Season
 
   attr_reader :season_name,
               :game_data,
-              :game_teams_data
+              :game_teams_data,
+              :season_data_report
 
   def initialize(season_name, game_data, game_teams_data)
     @season_name = season_name
     @game_data = game_data
     @game_teams_data = game_teams_data
+    @season_data_report ||= create_season_data_report(season_name, game_data, game_teams_data)
   end
+
+  def create_season_data_report(season_name, game_data, game_teams_data)
+    season_report = {}
+    game_teams_data.each do |game_team|
+      game = game_data.find { |game| game.game_id == game_team.game_id.to_s}
+      teamid = game_team.team_id
+      regpost = game.type
+      outcome = game_team.result
+      win = outcome == "WIN" ? 1 : 0
+      tackle = game_team.tackles
+      shot = game_team.shots
+      goals = game_team.goals
+
+      if season_report[teamid].nil?
+        season_report[teamid] = {
+                                  regpost => {
+                                      wins: win,
+                                      games: 1,
+                                      tackles: tackle,
+                                      shots: shot,
+                                      goals: goals
+                                    }
+                                  }
+
+      elsif season_report[teamid][regpost].nil?
+         season_report[teamid][regpost] = {
+                                            wins: win,
+                                            games: 1,
+                                            tackles: tackle,
+                                            shots: shot,
+                                            goals: goals
+                                            }
+      else
+        season_report[teamid][regpost][:wins] += win
+        season_report[teamid][regpost][:games] += 1
+        season_report[teamid][regpost][:tackles] += tackle
+        season_report[teamid][regpost][:shots] += shot
+        season_report[teamid][regpost][:goals] += goals
+      end
+    end
+    season_report
+  end
+
 
 end
