@@ -85,6 +85,26 @@ class SeasonTest < Minitest::Test
     assert_equal expected, Season.find_season_game_teams(stat_tracker.game_teams_data, season_game_data)
   end
 
+  def test_it_creates_seasons
+    skip
+  end
+
+  def test_it_finds_most_accurate_team
+    assert_equal "Seattle Sounders FC", Season.most_accurate_team("20172018")
+  end
+
+  def test_it_finds_least_accurate_team
+    assert_equal "Atlanta United", Season.least_accurate_team("20172018")
+  end
+
+  def test_it_finds_team_with_most_tackles
+    assert_equal "Atlanta United", Season.most_tackles("20172018")
+  end
+
+  def test_it_finds_team_with_least_tackles
+    assert_equal "Seattle Sounders FC", Season.fewest_tackles("20172018")
+  end
+
   def test_it_exists
     assert_instance_of Season, @season
   end
@@ -121,22 +141,6 @@ class SeasonTest < Minitest::Test
     expected =  {2=>{"Regular Season"=>{:wins=>15, :games=>43, :tackles=>900, :shots=>331, :goals=>103, :win_percentage=>0.3488372093023256, :shot_accuracy=>3.2136}}, 1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4, :win_percentage=>0.5, :shot_accuracy=>4.25}, "Regular Season"=>{:wins=>17, :games=>43, :tackles=>953, :shots=>334, :goals=>94, :win_percentage=>0.3953488372093023, :shot_accuracy=>3.5532}}}
 
     assert_equal expected, @season.season_data_report
-  end
-
-  def test_it_finds_most_accurate_team
-    assert_equal "Seattle Sounders FC", Season.most_accurate_team("20172018")
-  end
-
-  def test_it_finds_least_accurate_team
-    assert_equal "Atlanta United", Season.least_accurate_team("20172018")
-  end
-
-  def test_it_finds_team_with_most_tackles
-    assert_equal "Atlanta United", Season.most_tackles("20172018")
-  end
-
-  def test_it_finds_team_with_least_tackles
-    assert_equal "Seattle Sounders FC", Season.fewest_tackles("20172018")
   end
 
 end
