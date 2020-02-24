@@ -20,7 +20,6 @@ class GameTeams
   end
 
   def self.win_percentage(grouped = @@all_game_teams_data.group_by(&:team_id))
-    grouped = grouped
     grouped.map {|team, data| grouped[team] = data.map(&:result)}
     grouped.map do |team, data|
       grouped[team] = (data.count("WIN")/data.size.to_f).round(5)
