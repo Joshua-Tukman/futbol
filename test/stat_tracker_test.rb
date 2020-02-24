@@ -14,7 +14,6 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    require "pry"; binding.pry
   end
 
   def test_it_exists
@@ -245,5 +244,18 @@ class StatTrackerTest < Minitest::Test
 
   def test_it_calculates_lowest_scoring_home_team
     assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_it_finds_team_with_biggest_bust
+    game_path = './test/fixtures/fixtures_smaller/season_games.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/fixtures_smaller/season_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal "Seattle Sounders FC", stat_tracker.biggest_bust("20152016")
   end
 end

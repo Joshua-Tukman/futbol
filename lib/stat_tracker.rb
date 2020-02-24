@@ -144,4 +144,8 @@ class StatTracker
     Season.fewest_tackles(year)
   end
 
+  def biggest_bust(year)
+    Team.names_by_id[Season.biggest_bust_id(year)]
+  end
+
 end

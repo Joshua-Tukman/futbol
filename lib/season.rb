@@ -1,9 +1,10 @@
-require_relative 'calculable'
+require_relative 'calculable.rb'
+require_relative 'hashable.rb'
 
 class Season
   include Calculable
   extend Calculable
-
+  extend Hashable
   @@all_seasons = nil
 
   def self.all
@@ -96,6 +97,16 @@ class Season
       data["Regular Season"][:tackles] + post_tackles
     end[0]
     Team.all.find { |team| team.team_id == team_id}.teamname
+  end
+
+  def self.biggest_bust_id(season)
+    diff = {}
+    @@all_seasons.each do |season|
+      season.season_data_report.each do |team_id, data|
+        diff[team_id] = data["Regular Season"][:win_percentage] - data["Postseason"][:win_percentage]
+      end
+    end
+    key_with_max_value(diff)
   end
 
   attr_reader :season_name,
