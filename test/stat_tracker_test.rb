@@ -14,6 +14,7 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
+    require "pry"; binding.pry
   end
 
   def test_it_exists
@@ -36,6 +37,11 @@ class StatTrackerTest < Minitest::Test
     assert_equal 945, @stat_tracker.game_teams_data.size
     assert_instance_of GameTeams, @stat_tracker.game_teams_data.sample
     assert_instance_of GameTeams, @stat_tracker.game_teams_data.sample
+  end
+
+  def test_it_stores_a_collection_of_season_data
+    assert_equal 6, @stat_tracker.season_data.size
+    assert_instance_of Season, @stat_tracker.season_data.sample
   end
 
   def test_it_finds_highest_total_score
