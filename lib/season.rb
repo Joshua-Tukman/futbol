@@ -10,7 +10,7 @@ class Season
     @@all_seasons
   end
 
-  def self.find_all_seasons(game_data)
+  def self.find_unique_seasons(game_data)
     game_data.map { |game| game.season }.uniq
   end
 
@@ -34,7 +34,7 @@ class Season
 
   def self.create_seasons(game_data, game_teams_data)
     @@all_seasons = []
-    all_seasons = self.find_all_seasons(game_data)
+    all_seasons = self.find_unique_seasons(game_data)
     all_seasons.each do |season|
       season_game_data = self.find_season_games(game_data, season)
       season_game_teams_data = self.find_season_game_teams(game_teams_data, season_game_data)

@@ -18,10 +18,15 @@ class SeasonTest < Minitest::Test
     @season = @stat_tracker.season_data[0]
   end
 
+  def test_it_finds_all_seasons
+    assert_equal 6, Season.all.length
+    assert_equal @season, Season.all[0]
+  end
+
   def test_it_finds_unique_seasons
     expected = ["20172018", "20132014", "20122013", "20142015", "20162017", "20152016"]
 
-    assert_equal expected, Season.find_all_seasons(@stat_tracker.games_data)
+    assert_equal expected, Season.find_unique_seasons(@stat_tracker.games_data)
   end
 
   def test_it_finds_single_seasons
@@ -40,7 +45,6 @@ class SeasonTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    season = stat_tracker.season_data[0]
 
     expected = [stat_tracker.games_data[3], stat_tracker.games_data[5]]
 
@@ -57,7 +61,6 @@ class SeasonTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    season = stat_tracker.season_data[0]
 
     season_game_data = Season.find_season_games(stat_tracker.games_data, "20172018")
     expected = ["2017030113", "2017030114"]
@@ -75,7 +78,6 @@ class SeasonTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
-    season = stat_tracker.season_data[0]
 
     season_game_data = Season.find_season_games(stat_tracker.games_data, "20172018")
     expected = [stat_tracker.game_teams_data[6], stat_tracker.game_teams_data[7]]
