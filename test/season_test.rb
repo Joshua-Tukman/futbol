@@ -85,10 +85,6 @@ class SeasonTest < Minitest::Test
     assert_equal expected, Season.find_season_game_teams(stat_tracker.game_teams_data, season_game_data)
   end
 
-  def test_it_creates_seasons
-    skip
-  end
-
   def test_it_finds_most_accurate_team
     assert_equal "Seattle Sounders FC", Season.most_accurate_team("20172018")
   end
