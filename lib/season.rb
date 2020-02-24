@@ -1,7 +1,8 @@
 class Season
   include Calculable
+  extend Calculable
 
-  @@all_seasons = []
+  @@all_seasons = nil
 
   def self.all
     @@all_seasons
@@ -25,15 +26,16 @@ class Season
     game_data.map { |game| game.game_id }
   end
 
-  def self.find_season_game_teams(game_teams_data, season_game_data, season)
+  def self.find_season_game_teams(game_teams_data, season_game_data )
     game_teams_data.select { |game_team| self.find_season_game_ids(season_game_data).include?(game_team.game_id.to_s) }
   end
 
   def self.create_seasons(game_data, game_teams_data)
+    @@all_seasons = []
     all_seasons = self.find_all_seasons(game_data)
     all_seasons.each do |season|
       season_game_data = self.find_season_games(game_data, season)
-      season_game_teams_data = self.find_season_game_teams(game_teams_data, season_game_data, season)
+      season_game_teams_data = self.find_season_game_teams(game_teams_data, season_game_data)
       @@all_seasons << new(season, season_game_data, season_game_teams_data)
     end
   end
@@ -41,7 +43,15 @@ class Season
   def self.most_accurate_team(season_param)
     season_report = self.find_single_season(season_param).season_data_report
     team_id = season_report.max_by do |team, data|
-      data["Regular Season"][:shot_accuracy]
+      post_shots = 0
+      post_goals = 0
+      if data["Postseason"]
+        post_shots = data["Postseason"][:shots]
+        post_goals = data["Postseason"][:goals]
+      end
+      total_shots = data["Regular Season"][:shots] + post_shots
+      total_goals = data["Regular Season"][:goals] + post_goals
+      average(total_goals, total_shots)
     end[0]
     Team.all.find { |team| team.team_id == team_id}.teamname
   end
@@ -49,7 +59,15 @@ class Season
   def self.least_accurate_team(season_param)
     season_report = self.find_single_season(season_param).season_data_report
     team_id = season_report.min_by do |team, data|
-      data["Regular Season"][:shot_accuracy]
+      post_shots = 0
+      post_goals = 0
+      if data["Postseason"]
+        post_shots = data["Postseason"][:shots]
+        post_goals = data["Postseason"][:goals]
+      end
+      total_shots = data["Regular Season"][:shots] + post_shots
+      total_goals = data["Regular Season"][:goals] + post_goals
+      average(total_goals, total_shots)
     end[0]
     Team.all.find { |team| team.team_id == team_id}.teamname
   end
@@ -57,7 +75,11 @@ class Season
   def self.most_tackles(season_param)
     season_report = self.find_single_season(season_param).season_data_report
     team_id = season_report.max_by do |team, data|
-      data["Regular Season"][:tackles]
+      post_tackles = 0
+      if data["Postseason"]
+        post_tackles = data["Postseason"][:tackles]
+      end
+      data["Regular Season"][:tackles] + post_tackles
     end[0]
     Team.all.find { |team| team.team_id == team_id}.teamname
   end
@@ -65,7 +87,11 @@ class Season
   def self.fewest_tackles(season_param)
     season_report = self.find_single_season(season_param).season_data_report
     team_id = season_report.min_by do |team, data|
-      data["Regular Season"][:tackles]
+      post_tackles = 0
+      if data["Postseason"]
+        post_tackles = data["Postseason"][:tackles]
+      end
+      data["Regular Season"][:tackles] + post_tackles
     end[0]
     Team.all.find { |team| team.team_id == team_id}.teamname
   end
@@ -125,7 +151,7 @@ class Season
         season_report[teamid][regpost][:goals] += game_team.goals
         win_pct = average(season_report[teamid][regpost][:wins], season_report[teamid][regpost][:games])
         season_report[teamid][regpost][:win_percentage] = win_pct
-        shot_pct = average(season_report[teamid][regpost][:shots], season_report[teamid][regpost][:goals])
+        shot_pct = average(season_report[teamid][regpost][:shots], season_report[teamid][regpost][:goals]).round(4)
         season_report[teamid][regpost][:shot_accuracy] = shot_pct
       end
     end
