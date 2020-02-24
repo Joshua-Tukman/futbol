@@ -1,3 +1,5 @@
+require_relative 'calculable'
+
 class Season
   include Calculable
   extend Calculable
