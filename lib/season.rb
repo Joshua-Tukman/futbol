@@ -1,5 +1,3 @@
-require_relative 'stat_tracker'
-
 class Season
   include Calculable
 
@@ -71,7 +69,7 @@ class Season
     end[0]
     Team.all.find { |team| team.team_id == team_id}.teamname
   end
-  
+
   attr_reader :season_name,
               :game_data,
               :game_teams_data,
