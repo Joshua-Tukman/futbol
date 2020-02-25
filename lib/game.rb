@@ -24,15 +24,15 @@ class Game
   end
 
   def self.home_wins
-    @@all_games.select {|game| game.home_goals > game.away_goals}.length
+    @@home_wins ||= @@all_games.select {|game| game.home_goals > game.away_goals}.length
   end
 
   def self.visitor_wins
-    @@all_games.select {|game| game.home_goals < game.away_goals}.length
+    @@visitor_wins ||= @@all_games.select {|game| game.home_goals < game.away_goals}.length
   end
 
   def self.ties
-    @@all_games.select {|game| game.margin_of_victory.zero?}.length
+    @@ties ||= @@all_games.select {|game| game.margin_of_victory.zero?}.length
   end
 
   def self.count_of_games_by_season
@@ -95,11 +95,11 @@ class Game
   end
 
   def total_score
-    @home_goals + @away_goals
+    @total_score ||= @home_goals + @away_goals
   end
 
   def margin_of_victory
-    (@home_goals - @away_goals).abs
+    @margin_of_victory ||= (@home_goals - @away_goals).abs
   end
 
 end
