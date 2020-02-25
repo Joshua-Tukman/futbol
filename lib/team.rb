@@ -1,7 +1,10 @@
 require_relative 'data_loadable'
+require_relative 'calculable'
+require_relative 'season'
 
 class Team
   extend DataLoadable
+  extend Calculable
   @@all_teams = nil
 
   def self.load_csv(file_path)
@@ -38,6 +41,20 @@ class Team
       by_id[team.team_id] = team.teamname
       by_id
     end
+  end
+
+  def self.best_season(team)
+    # require "pry"; binding.pry
+    team_seasons = Season.all.reduce({}) do |report, season|
+      report[season.season_name] = {
+        wins: season.season_data_report[team][:wins],
+        games: season.season_data_report[team][:games]
+      }
+      report
+    end
+    team_seasons.max_by do |season|
+      average(season[:wins], season[:games])
+    end.season_name
   end
 
   attr_reader :team_id,

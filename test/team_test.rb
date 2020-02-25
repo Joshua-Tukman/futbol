@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/stat_tracker'
 require './lib/team'
 
 class TeamTest < Minitest::Test
@@ -74,5 +75,4 @@ class TeamTest < Minitest::Test
     }
     assert_equal expected, Team.names_by_id
   end
-
 end
