@@ -278,9 +278,8 @@ class StatTrackerTest < Minitest::Test
       "team_id"=>"1",
       "team_name"=>"Atlanta United"
     }
-
-     assert_equal expected, @stat_tracker.team_info("1")
-
+    
+    assert_equal expected, @stat_tracker.team_info("1")
   end
 
 end
