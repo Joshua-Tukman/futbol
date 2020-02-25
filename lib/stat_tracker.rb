@@ -144,8 +144,17 @@ class StatTracker
     Season.fewest_tackles(year)
   end
 
+<<<<<<< HEAD
   def biggest_bust(year)
     Team.names_by_id[Season.biggest_bust_id(year)]
+=======
+  def winningest_coach(year)
+    Season.winningest_coach(year)
+  end
+
+  def worst_coach(year)
+    Season.worst_coach(year)
+>>>>>>> d07679cf7ed852dde079b77f399ab8aa1ebcabbb
   end
 
 end

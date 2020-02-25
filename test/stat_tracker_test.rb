@@ -258,4 +258,5 @@ class StatTrackerTest < Minitest::Test
     stat_tracker = StatTracker.from_csv(locations)
     assert_equal "Seattle Sounders FC", stat_tracker.biggest_bust("20152016")
   end
+
 end
