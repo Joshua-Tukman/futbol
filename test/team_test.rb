@@ -1,4 +1,5 @@
 require './test/test_helper'
+require './lib/stat_tracker'
 require './lib/team'
 
 class TeamTest < Minitest::Test
@@ -45,6 +46,28 @@ class TeamTest < Minitest::Test
     assert_equal 2, Team.all.size
   end
 
+  def test_it_looks_up_team_name
+    assert_equal "Atlanta United", Team.id_lookup[1]
+    assert_equal "Seattle Sounders FC", Team.id_lookup[2]
+  end
+
+  def test_it_returns_team_info
+    expected =
+    {"1"=>
+      {"abbreviation"=>"ATL",
+        "franchise_id"=>"23",
+        "link"=>"/api/v1/teams/1",
+        "team_id"=>"1",
+        "team_name"=>"Atlanta United"},
+    "2"=>
+      {"abbreviation"=>"SEA",
+        "franchise_id"=>"22",
+        "link"=>"/api/v1/teams/2",
+        "team_id"=>"2",
+        "team_name"=>"Seattle Sounders FC"}}
+    assert_equal expected, Team.team_info
+  end
+
   def test_it_can_group_team_names_by_id
     expected = {
       1 => "Atlanta United",
@@ -52,5 +75,4 @@ class TeamTest < Minitest::Test
     }
     assert_equal expected, Team.names_by_id
   end
-
 end

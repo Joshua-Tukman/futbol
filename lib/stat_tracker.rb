@@ -8,17 +8,20 @@ class StatTracker
     Team.load_csv(locations[:teams])
     Game.load_csv(locations[:games])
     GameTeams.load_csv(locations[:game_teams])
-    StatTracker.new(Game.all, Team.all, GameTeams.all)
+    Season.create_seasons(Game.all, GameTeams.all)
+    StatTracker.new(Game.all, Team.all, GameTeams.all, Season.all)
   end
 
   attr_reader :games_data,
               :teams_data,
-              :game_teams_data
+              :game_teams_data,
+              :season_data
 
-  def initialize(games_data, teams_data, game_teams_data)
+  def initialize(games_data, teams_data, game_teams_data, season_data)
     @games_data = games_data
     @teams_data = teams_data
     @game_teams_data = game_teams_data
+    @season_data = season_data
   end
 
   def highest_total_score
@@ -123,6 +126,42 @@ class StatTracker
 
   def lowest_scoring_home_team
     @teams_data.min_by {|team| goals_for_average(team.team_id, "home")}.teamname
+  end
+
+  def most_accurate_team(year)
+    Season.most_accurate_team(year)
+  end
+
+  def least_accurate_team(year)
+    Season.least_accurate_team(year)
+  end
+
+  def most_tackles(year)
+    Season.most_tackles(year)
+  end
+
+  def fewest_tackles(year)
+    Season.fewest_tackles(year)
+  end
+
+  def biggest_bust(year)
+    Team.names_by_id[Season.biggest_diff_id(year, 'bust')]
+  end
+
+  def biggest_surprise(year)
+    Team.names_by_id[Season.biggest_diff_id(year, 'surprise')]
+  end
+
+  def winningest_coach(year)
+    Season.winningest_coach(year)
+  end
+
+  def worst_coach(year)
+    Season.worst_coach(year)
+  end
+
+  def team_info(team_id)
+    Team.team_info[team_id.to_s]
   end
 
 end

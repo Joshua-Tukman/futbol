@@ -16,6 +16,13 @@ class Game
     @@all_games
   end
 
+  def self.game_lookup
+    @@game_lookup ||= @@all_games.reduce ({}) do |lookup, game|
+      lookup[game.game_id] = {season: game.season, type: game.type}
+      lookup
+    end
+  end
+
   def self.home_wins
     @@all_games.select {|game| game.home_goals > game.away_goals}.length
   end
