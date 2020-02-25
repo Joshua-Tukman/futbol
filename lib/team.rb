@@ -14,8 +14,21 @@ class Team
   end
 
   def self.id_lookup
-    @@id_lookup ||= @@all_teams.reduce ({}) do |lookup, team|
+    @@id_lookup = all.reduce ({}) do |lookup, team|
       lookup[team.team_id] = team.teamname
+      lookup
+    end
+  end
+
+  def self.team_info
+    @@team_info ||= @@all_teams.reduce({}) do |lookup, team|
+      lookup[team.team_id.to_s] = {
+        "abbreviation" => team.abbreviation,
+        "franchise_id" => team.franchiseid.to_s,
+        "link" => team.link,
+        "team_id" => team.team_id.to_s,
+        "team_name" => team.teamname
+      }
       lookup
     end
   end

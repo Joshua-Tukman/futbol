@@ -143,7 +143,26 @@ class SeasonTest < Minitest::Test
   end
 
   def test_it_creates_season_data_report
-    expected = {2=>{"Regular Season"=>{:wins=>15, :games=>43, :tackles=>900, :shots=>331, :goals=>103}}, 1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4}, "Regular Season"=>{:wins=>17, :games=>43, :tackles=>953, :shots=>334, :goals=>94}}}
+    expected = {2=>
+      {"Regular Season"=>
+        {:wins=>15,
+          :games=>43,
+          :tackles=>900,
+          :shots=>331,
+          :goals=>103}},
+      1=>
+        {"Postseason"=>
+          {:wins=>1,
+            :games=>2,
+            :tackles=>58,
+            :shots=>17,
+            :goals=>4},
+          "Regular Season"=>
+            {:wins=>17,
+              :games=>43,
+              :tackles=>953,
+              :shots=>334,
+              :goals=>94}}}
 
     assert_equal expected, @season.season_data_report
   end

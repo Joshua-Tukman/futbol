@@ -118,10 +118,6 @@ class Season
     @season_data_report ||= create_season_data_report
   end
 
-  # def find_game_parent(game_id)
-  #   @game_data.find { |game| game.game_id == game_id.to_s}
-  # end
-
   def win_count(outcome)
     outcome == "WIN" ? 1 : 0
   end

@@ -270,4 +270,17 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Doug Weight", @stat_tracker.worst_coach("20172018")
   end
 
+  def test_it_returns_team_info
+    expected = {
+      "abbreviation"=>"ATL",
+      "franchise_id"=>"23",
+      "link"=>"/api/v1/teams/1",
+      "team_id"=>"1",
+      "team_name"=>"Atlanta United"
+    }
+
+     assert_equal expected, @stat_tracker.team_info("1")
+
+  end
+
 end
