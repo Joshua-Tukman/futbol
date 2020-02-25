@@ -1,10 +1,8 @@
 require_relative 'data_loadable.rb'
-require_relative 'hashable.rb'
 require_relative 'calculable.rb'
 
 class GameTeams
   extend DataLoadable
-  extend Hashable
   extend Calculable
 
 

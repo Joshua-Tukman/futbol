@@ -1,7 +1,6 @@
-require_relative 'dependents'
+require_relative 'dependents.rb'
 
 class StatTracker
-  include Hashable
   include Calculable
 
   def self.from_csv(locations)

@@ -1,5 +1,5 @@
-require_relative 'data_loadable'
-require_relative 'calculable'
+require_relative 'data_loadable.rb'
+require_relative 'calculable.rb'
 
 class Game
   extend DataLoadable

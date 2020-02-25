@@ -1,16 +1,8 @@
-
 require_relative 'calculable.rb'
-require_relative 'hashable.rb'
-require_relative 'calculable'
-require_relative 'findable'
-
 
 class Season
   include Calculable
   extend Calculable
-  extend Hashable
-  include Findable
-  extend Findable
 
   @@all_seasons = nil
 
