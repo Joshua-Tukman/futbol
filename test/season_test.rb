@@ -169,7 +169,7 @@ class SeasonTest < Minitest::Test
 
 
   def test_it_calculates_win_percentage_difference_between_season_types
-    assert_equal -0.10, @season.win_percentage_diff_between_season_types[1].round(2)
+    assert_equal (-0.10), @season.win_percentage_diff_between_season_types[1].round(2)
   end
 
   def test_it_finds_team_id_with_biggest_bust
@@ -181,7 +181,7 @@ class SeasonTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    stat_tracker = StatTracker.from_csv(locations)
+    StatTracker.from_csv(locations)
     assert_equal 2, Season.biggest_diff_id("20152016", 'bust')
   end
 
@@ -194,7 +194,7 @@ class SeasonTest < Minitest::Test
       teams: team_path,
       game_teams: game_teams_path
     }
-    stat_tracker = StatTracker.from_csv(locations)
+    StatTracker.from_csv(locations)
     assert_equal 2, Season.biggest_diff_id("20152016", 'surprise')
   end
 
