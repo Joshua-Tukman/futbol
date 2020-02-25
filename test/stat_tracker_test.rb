@@ -272,4 +272,40 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Seattle Sounders FC", stat_tracker.biggest_bust("20152016")
   end
 
+  def test_it_finds_most_accurate_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_accurate_team("20172018")
+  end
+
+  def test_it_finds_least_accurate_team
+    assert_equal "Atlanta United", @stat_tracker.least_accurate_team("20172018")
+  end
+
+  def test_it_finds_team_with_most_tackles
+    assert_equal "Atlanta United", @stat_tracker.most_tackles("20172018")
+  end
+
+  def test_it_finds_team_with_least_tackles
+    assert_equal "Seattle Sounders FC", @stat_tracker.fewest_tackles("20172018")
+  end
+
+  def test_it_finds_winningest_coach
+    assert_equal "John Hynes", @stat_tracker.winningest_coach("20172018")
+  end
+
+  def test_it_find_losingest_coach
+    assert_equal "Doug Weight", @stat_tracker.worst_coach("20172018")
+  end
+
+  def test_it_returns_team_info
+    expected = {
+      "abbreviation"=>"ATL",
+      "franchise_id"=>"23",
+      "link"=>"/api/v1/teams/1",
+      "team_id"=>"1",
+      "team_name"=>"Atlanta United"
+    }
+
+    assert_equal expected, @stat_tracker.team_info("1")
+  end
+
 end

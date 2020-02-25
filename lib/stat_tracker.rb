@@ -160,4 +160,8 @@ class StatTracker
     Season.worst_coach(year)
   end
 
+  def team_info(team_id)
+    Team.team_info[team_id.to_s]
+  end
+
 end
