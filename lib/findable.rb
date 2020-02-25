@@ -9,4 +9,8 @@ module Findable
     Team.id_lookup[team_id]
   end
 
+  def find_game_info(game_id)
+    Game.game_lookup[game_id]
+  end
+
 end

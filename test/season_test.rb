@@ -135,12 +135,6 @@ class SeasonTest < Minitest::Test
     assert_equal expected_game_team_data.size, season.game_teams_data.size
   end
 
-  def test_it_finds_game_parent
-    expected = @stat_tracker.games_data[0]
-
-    assert_equal expected.game_id, @season.find_game_parent(2017030113).game_id
-  end
-
   def test_it_calculates_win_count
     assert_equal 1, @season.win_count("WIN")
     assert_equal 0, @season.win_count("TIE")
@@ -152,6 +146,11 @@ class SeasonTest < Minitest::Test
     expected = {2=>{"Regular Season"=>{:wins=>15, :games=>43, :tackles=>900, :shots=>331, :goals=>103}}, 1=>{"Postseason"=>{:wins=>1, :games=>2, :tackles=>58, :shots=>17, :goals=>4}, "Regular Season"=>{:wins=>17, :games=>43, :tackles=>953, :shots=>334, :goals=>94}}}
 
     assert_equal expected, @season.season_data_report
+  end
+
+  def test_it_looks_up_team_name
+    assert_equal "Atlanta United", Season.find_team_name(1)
+    assert_equal "Seattle Sounders FC",  Season.find_team_name(2)
   end
 
 end

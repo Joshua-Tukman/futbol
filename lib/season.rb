@@ -118,9 +118,9 @@ class Season
     @season_data_report ||= create_season_data_report
   end
 
-  def find_game_parent(game_id)
-    @game_data.find { |game| game.game_id == game_id.to_s}
-  end
+  # def find_game_parent(game_id)
+  #   @game_data.find { |game| game.game_id == game_id.to_s}
+  # end
 
   def win_count(outcome)
     outcome == "WIN" ? 1 : 0
@@ -129,9 +129,8 @@ class Season
   def create_season_data_report
     season_report = {}
     @game_teams_data.each do |game_team|
-      game = find_game_parent(game_team.game_id)
       teamid = game_team.team_id
-      regpost = game.type
+      regpost = find_game_info(game_team.game_id.to_s)[:type]
       outcome = game_team.result
 
       if season_report[teamid].nil?
