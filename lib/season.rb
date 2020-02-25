@@ -98,6 +98,44 @@ class Season
     Team.all.find { |team| team.team_id == team_id}.teamname
   end
 
+  def self.winningest_coach(season_param)
+    games = self.find_season_games(Game.all, season_param)
+    game_teams = self.find_season_game_teams(GameTeams.all, games)
+
+    coach_wins = game_teams.reduce({}) do |games_by_coach, game|
+      win = game.result == "WIN" ? 1 : 0
+      if !games_by_coach[game.head_coach]
+        games_by_coach[game.head_coach] = {game: 1, win: win}
+      else
+        games_by_coach[game.head_coach][:game] += 1
+        games_by_coach[game.head_coach][:win] += win
+      end
+      games_by_coach
+    end
+    coach_wins.max_by do |coach, games|
+      average(games[:win], games[:game])
+    end[0]
+  end
+
+  def self.worst_coach(season_param)
+    games = self.find_season_games(Game.all, season_param)
+    game_teams = self.find_season_game_teams(GameTeams.all, games)
+
+    coach_wins = game_teams.reduce({}) do |games_by_coach, game|
+      win = game.result == "WIN" ? 1 : 0
+      if !games_by_coach[game.head_coach]
+        games_by_coach[game.head_coach] = {game: 1, win: win}
+      else
+        games_by_coach[game.head_coach][:game] += 1
+        games_by_coach[game.head_coach][:win] += win
+      end
+      games_by_coach
+    end
+    coach_wins.min_by do |coach, games|
+      average(games[:win], games[:game])
+    end[0]
+  end
+
   attr_reader :season_name,
               :game_data,
               :game_teams_data,
@@ -129,9 +167,7 @@ class Season
               games: 1,
               tackles: game_team.tackles,
               shots: game_team.shots,
-              goals: game_team.goals,
-              win_percentage: average(outcome == "WIN" ? 1 : 0, 1),
-              shot_accuracy: average(game_team.shots, game_team.goals)
+              goals: game_team.goals
             }
           }
 
@@ -141,9 +177,7 @@ class Season
             games: 1,
             tackles: game_team.tackles,
             shots: game_team.shots,
-            goals: game_team.goals,
-            win_percentage: average(outcome == "WIN" ? 1 : 0, 1),
-            shot_accuracy: average(game_team.shots, game_team.goals)
+            goals: game_team.goals
           }
       else
         season_report[teamid][regpost][:wins] += outcome == "WIN" ? 1 : 0
@@ -151,10 +185,6 @@ class Season
         season_report[teamid][regpost][:tackles] += game_team.tackles
         season_report[teamid][regpost][:shots] += game_team.shots
         season_report[teamid][regpost][:goals] += game_team.goals
-        win_pct = average(season_report[teamid][regpost][:wins], season_report[teamid][regpost][:games])
-        season_report[teamid][regpost][:win_percentage] = win_pct
-        shot_pct = average(season_report[teamid][regpost][:shots], season_report[teamid][regpost][:goals]).round(4)
-        season_report[teamid][regpost][:shot_accuracy] = shot_pct
       end
     end
     season_report

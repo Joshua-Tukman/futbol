@@ -144,4 +144,12 @@ class StatTracker
     Season.fewest_tackles(year)
   end
 
+  def winningest_coach(year)
+    Season.winningest_coach(year)
+  end
+
+  def worst_coach(year)
+    Season.worst_coach(year)
+  end
+
 end
