@@ -11,7 +11,7 @@ class Season
   end
 
   def self.find_unique_seasons(game_data)
-    game_data.map { |game| game.season }.uniq
+    @@unique_seasons ||= game_data.map { |game| game.season }.uniq
   end
 
   def self.find_single_season(season_param)
