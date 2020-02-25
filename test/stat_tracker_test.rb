@@ -246,4 +246,28 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.lowest_scoring_home_team
   end
 
+  def test_it_finds_most_accurate_team
+    assert_equal "Seattle Sounders FC", @stat_tracker.most_accurate_team("20172018")
+  end
+
+  def test_it_finds_least_accurate_team
+    assert_equal "Atlanta United", @stat_tracker.least_accurate_team("20172018")
+  end
+
+  def test_it_finds_team_with_most_tackles
+    assert_equal "Atlanta United", @stat_tracker.most_tackles("20172018")
+  end
+
+  def test_it_finds_team_with_least_tackles
+    assert_equal "Seattle Sounders FC", @stat_tracker.fewest_tackles("20172018")
+  end
+
+  def test_it_finds_winningest_coach
+    assert_equal "John Hynes", @stat_tracker.winningest_coach("20172018")
+  end
+
+  def test_it_find_losingest_coach
+    assert_equal "Doug Weight", @stat_tracker.worst_coach("20172018")
+  end
+
 end
