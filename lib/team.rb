@@ -13,6 +13,13 @@ class Team
     @@all_teams
   end
 
+  def self.id_lookup
+    @@id_lookup ||= @@all_teams.reduce ({}) do |lookup, team|
+      lookup[team.team_id] = team.teamname
+      lookup
+    end
+  end
+
   def self.names_by_id
     @@all_teams.reduce({}) do |by_id, team|
       by_id[team.team_id] = team.teamname

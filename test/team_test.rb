@@ -18,6 +18,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_it_exists
+    # require "pry"; binding.pry
     assert_instance_of Team, @team
   end
 
@@ -43,6 +44,11 @@ class TeamTest < Minitest::Test
   def test_it_contains_all_teams
     assert_instance_of Team, Team.all.sample
     assert_equal 2, Team.all.size
+  end
+
+  def test_it_looks_up_team_name
+    assert_equal "Atlanta United", Team.id_lookup[1]
+    assert_equal "Seattle Sounders FC", Team.id_lookup[2]
   end
 
   def test_it_can_group_team_names_by_id

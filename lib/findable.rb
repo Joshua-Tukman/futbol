@@ -6,7 +6,7 @@ module Findable
   end
 
   def find_team_name(team_id)
-    Team.all.find { |team| team.team_id == team_id}.teamname
+    Team.id_lookup[team_id]
   end
 
 end
