@@ -103,7 +103,8 @@ class Season
     diff = {}
     @@all_seasons.each do |season|
       season.season_data_report.each do |team_id, data|
-        diff[team_id] = data["Regular Season"][:win_percentage] - data["Postseason"][:win_percentage]
+        next if data["Postseason"].nil?
+        diff[team_id] = (data["Regular Season"][:win_percentage] - data["Postseason"][:win_percentage])
       end
     end
     key_with_max_value(diff)
