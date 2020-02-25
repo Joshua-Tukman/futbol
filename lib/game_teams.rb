@@ -31,7 +31,7 @@ class GameTeams
 
   def self.win_percentage_hoa(hoa)
     by_hoa = @@all_game_teams_data.group_by(&:hoa)
-    by_hoa.map {|hoa, data| by_hoa[hoa] = data.group_by(&:team_id)}
+    by_hoa.map {|homeaway, data| by_hoa[homeaway] = data.group_by(&:team_id)}
     self.win_percentage(by_hoa[hoa])
   end
 
