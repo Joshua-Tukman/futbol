@@ -167,6 +167,37 @@ class SeasonTest < Minitest::Test
     assert_equal expected, @season.season_data_report
   end
 
+
+  def test_it_calculates_win_percentage_difference_between_season_types
+    assert_equal -0.10, @season.win_percentage_diff_between_season_types[1].round(2)
+  end
+
+  def test_it_finds_team_id_with_biggest_bust
+    game_path = './test/fixtures/fixtures_smaller/season_games.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/fixtures_smaller/season_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal 2, Season.biggest_diff_id("20152016", 'bust')
+  end
+
+  def test_it_finds_the_team_id_with_the_biggest_surprise
+    game_path = './test/fixtures/fixtures_smaller/season_games.csv'
+    team_path = './test/fixtures/teams_sample.csv'
+    game_teams_path = './test/fixtures/fixtures_smaller/season_game_teams.csv'
+    locations = {
+      games: game_path,
+      teams: team_path,
+      game_teams: game_teams_path
+    }
+    stat_tracker = StatTracker.from_csv(locations)
+    assert_equal 2, Season.biggest_diff_id("20152016", 'surprise')
+  end
+
   def test_it_looks_up_team_name
     assert_equal "Atlanta United", Season.find_team_name(1)
     assert_equal "Seattle Sounders FC",  Season.find_team_name(2)

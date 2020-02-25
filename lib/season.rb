@@ -1,9 +1,14 @@
+
+require_relative 'calculable.rb'
+require_relative 'hashable.rb'
 require_relative 'calculable'
 require_relative 'findable'
+
 
 class Season
   include Calculable
   extend Calculable
+  extend Hashable
   include Findable
   extend Findable
 
@@ -106,6 +111,16 @@ class Season
     end[0]
   end
 
+  def self.biggest_diff_id(season, bs)
+    season_obj = self.find_single_season(season)
+    bust = season_obj.win_percentage_diff_between_season_types
+    if bs == 'bust'
+      key_with_max_value(bust)
+    elsif bs == 'surprise'
+      key_with_min_value(bust)
+    end
+  end
+
   attr_reader :season_name,
               :game_data,
               :game_teams_data,
@@ -116,6 +131,21 @@ class Season
     @game_data = game_data
     @game_teams_data = game_teams_data
     @season_data_report ||= create_season_data_report
+  end
+
+  def win_percentage_diff_between_season_types
+    reg = {}
+    post = {}
+    @season_data_report.each do |team, data|
+      next if data["Postseason"].nil?
+      reg[team] = data["Regular Season"][:wins] / data["Regular Season"][:games].to_f
+      post[team] = data["Postseason"][:wins] / data["Postseason"][:games].to_f
+    end
+    diff = {}
+    reg.each do |team, win_percent|
+      diff[team] = win_percent - post[team]
+    end
+    diff
   end
 
   def win_count(outcome)

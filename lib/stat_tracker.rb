@@ -144,6 +144,14 @@ class StatTracker
     Season.fewest_tackles(year)
   end
 
+  def biggest_bust(year)
+    Team.names_by_id[Season.biggest_diff_id(year, 'bust')]
+  end
+
+  def biggest_surprise(year)
+    Team.names_by_id[Season.biggest_diff_id(year, 'surprise')]
+  end
+
   def winningest_coach(year)
     Season.winningest_coach(year)
   end
