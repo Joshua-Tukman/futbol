@@ -130,8 +130,8 @@ class Season
     post = {}
     @season_data_report.each do |team, data|
       next if data["Postseason"].nil?
-      reg[team] = data["Regular Season"][:wins] / data["Regular Season"][:games].to_f
-      post[team] = data["Postseason"][:wins] / data["Postseason"][:games].to_f
+      reg[team] = average(data["Regular Season"][:wins], data["Regular Season"][:games])
+      post[team] = average(data["Postseason"][:wins], data["Postseason"][:games])
     end
     diff = {}
     reg.each do |team, win_percent|
