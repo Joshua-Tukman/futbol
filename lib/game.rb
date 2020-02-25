@@ -35,13 +35,17 @@ class Game
     @@ties ||= @@all_games.select {|game| game.margin_of_victory.zero?}.length
   end
 
-  def self.count_of_games_by_season
-    games_by_season = @@all_games.group_by(&:season)
-    games_by_season.each {|season, games| games_by_season[season] = games.size}
+  def self.games_by_season
+    @@all_games.group_by(&:season)
   end
 
-  def self.total_goals_per_season
-    games_by_total_goals = @@all_games.group_by(&:season)
+  def self.count_of_games_by_season(games_by_season = self.games_by_season)
+    games_by_season.each do |season, games|
+      games_by_season[season] = games.size
+    end
+  end
+
+  def self.total_goals_per_season(games_by_total_goals = self.games_by_season)
     games_by_total_goals.each do |season, games|
       games_by_total_goals[season] = games.sum(&:total_score)
     end
