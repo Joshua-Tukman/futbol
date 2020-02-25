@@ -154,6 +154,10 @@ class SeasonTest < Minitest::Test
     assert_equal expected, @season.season_data_report
   end
 
+  def test_it_calculates_win_percentage_difference_between_season_types
+    assert_equal ({1=>0.5}), @season.win_percentage_diff_between_season_types
+  end
+
   def test_it_finds_team_id_with_biggest_bust
     game_path = './test/fixtures/fixtures_smaller/season_games.csv'
     team_path = './test/fixtures/teams_sample.csv'
@@ -164,6 +168,7 @@ class SeasonTest < Minitest::Test
       game_teams: game_teams_path
     }
     stat_tracker = StatTracker.from_csv(locations)
+
     assert_equal 2, Season.biggest_bust_id("20152016")
   end
 

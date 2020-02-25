@@ -112,14 +112,9 @@ class Season
   end
 
   def self.biggest_bust_id(season)
-    diff = {}
-    @@all_seasons.each do |season|
-      season.season_data_report.each do |team_id, data|
-        next if data["Postseason"].nil?
-        diff[team_id] = (data["Regular Season"][:win_percentage] - data["Postseason"][:win_percentage])
-      end
-    end
-    key_with_max_value(diff)
+    season_obj = self.find_single_season(season)
+    bust = season_obj.win_percentage_diff_between_season_types
+    key_with_max_value(bust)
   end
 
   attr_reader :season_name,
@@ -136,6 +131,21 @@ class Season
 
   def find_game_parent(game_id)
     @game_data.find { |game| game.game_id == game_id.to_s}
+  end
+
+  def win_percentage_diff_between_season_types
+    reg = {}
+    post = {}
+    @season_data_report.each do |team, data|
+      next if data["Postseason"].nil?
+      reg[team] = data["Regular Season"][:wins] / data["Regular Season"][:wins].to_f
+      post[team] = data["Postseason"][:wins] / data["Postseason"][:games].to_f
+    end
+    diff = {}
+    reg.each do |team, win_percent|
+      diff[team] = win_percent - post[team]
+    end
+    diff
   end
 
   def win_count(outcome)
