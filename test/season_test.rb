@@ -174,7 +174,7 @@ class SeasonTest < Minitest::Test
   end
 
   def test_it_calculates_win_percentage_difference_between_season_types
-    assert_equal -0.10, @season.win_percentage_diff_between_season_types[1].round(2)
+    assert_equal (-0.10), @season.win_percentage_diff_between_season_types[1].round(2)
   end
 
   def test_it_finds_team_id_with_biggest_bust
