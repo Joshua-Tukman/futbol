@@ -85,27 +85,27 @@ class SeasonTest < Minitest::Test
     assert_equal expected, Season.find_season_game_teams(stat_tracker.game_teams_data, season_game_data)
   end
 
-  def test_it_finds_most_accurate_team
-    assert_equal "Seattle Sounders FC", Season.most_accurate_team("20172018")
+  def test_it_finds_most_accurate_team_id
+    assert_equal 2, Season.most_accurate_team("20172018")
   end
 
-  def test_it_finds_least_accurate_team
-    assert_equal "Atlanta United", Season.least_accurate_team("20172018")
+  def test_it_finds_least_accurate_team_id
+    assert_equal 1, Season.least_accurate_team("20172018")
   end
 
-  def test_it_finds_team_with_most_tackles
-    assert_equal "Atlanta United", Season.most_tackles("20172018")
+  def test_it_finds_team_id_with_most_tackles
+    assert_equal 1, Season.most_tackles("20172018")
   end
 
-  def test_it_finds_team_with_least_tackles
-    assert_equal "Seattle Sounders FC", Season.fewest_tackles("20172018")
+  def test_it_finds_team_id_with_least_tackles
+    assert_equal 2, Season.fewest_tackles("20172018")
   end
 
   def test_it_finds_winningest_coach
     assert_equal "John Hynes", Season.winningest_coach("20172018")
   end
 
-  def test_it_find_losingest_coach
+  def test_it_finds_losingest_coach
     assert_equal "Doug Weight", Season.worst_coach("20172018")
   end
 
@@ -162,39 +162,26 @@ class SeasonTest < Minitest::Test
             :games=>43,
             :tackles=>953,
             :shots=>334,
-            :goals=>94}}}
-
+            :goals=>94}}
+      }
     assert_equal expected, @season.season_data_report
   end
 
+  def test_it_calculates_win_percentage
+    assert_equal Hash, @season.win_percentage("Regular Season").class
+    assert_equal 0.40, @season.win_percentage("Regular Season")[1].round(2)
+    assert_equal 0.5, @season.win_percentage("Postseason")[1].round(2)
+  end
 
   def test_it_calculates_win_percentage_difference_between_season_types
     assert_equal -0.10, @season.win_percentage_diff_between_season_types[1].round(2)
   end
 
   def test_it_finds_team_id_with_biggest_bust
-    game_path = './test/fixtures/fixtures_smaller/season_games.csv'
-    team_path = './test/fixtures/teams_sample.csv'
-    game_teams_path = './test/fixtures/fixtures_smaller/season_game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
     assert_equal 2, Season.biggest_diff_id("20152016", 'bust')
   end
 
   def test_it_finds_the_team_id_with_the_biggest_surprise
-    game_path = './test/fixtures/fixtures_smaller/season_games.csv'
-    team_path = './test/fixtures/teams_sample.csv'
-    game_teams_path = './test/fixtures/fixtures_smaller/season_game_teams.csv'
-    locations = {
-      games: game_path,
-      teams: team_path,
-      game_teams: game_teams_path
-    }
-    stat_tracker = StatTracker.from_csv(locations)
     assert_equal 2, Season.biggest_diff_id("20152016", 'surprise')
   end
 

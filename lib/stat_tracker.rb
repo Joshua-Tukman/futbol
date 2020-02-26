@@ -68,7 +68,7 @@ class StatTracker
   end
 
   def winningest_team
-    Team.names_by_id[GameTeams.winningest_team_id]
+    find_team_name(GameTeams.winningest_team_id)
   end
 
   def home_win_percentage
@@ -80,11 +80,11 @@ class StatTracker
   end
 
   def best_fans
-    Team.names_by_id[GameTeams.best_fans_team_id]
+    find_team_name(GameTeams.best_fans_team_id)
   end
 
   def worst_fans
-    GameTeams.better_away_records.map {|id| Team.names_by_id[id]}
+    GameTeams.better_away_records.map {|id| find_team_name(id)}
   end
 
   def goals_for_average(team_id, hoa = nil)
@@ -128,27 +128,27 @@ class StatTracker
   end
 
   def most_accurate_team(year)
-    Season.most_accurate_team(year)
+    find_team_name(Season.most_accurate_team(year))
   end
 
   def least_accurate_team(year)
-    Season.least_accurate_team(year)
+    find_team_name(Season.least_accurate_team(year))
   end
 
   def most_tackles(year)
-    Season.most_tackles(year)
+    find_team_name(Season.most_tackles(year))
   end
 
   def fewest_tackles(year)
-    Season.fewest_tackles(year)
+    find_team_name(Season.fewest_tackles(year))
   end
 
   def biggest_bust(year)
-    Team.names_by_id[Season.biggest_diff_id(year, 'bust')]
+    find_team_name(Season.biggest_diff_id(year, 'bust'))
   end
 
   def biggest_surprise(year)
-    Team.names_by_id[Season.biggest_diff_id(year, 'surprise')]
+    find_team_name(Season.biggest_diff_id(year, 'surprise'))
   end
 
   def winningest_coach(year)
