@@ -14,6 +14,7 @@ class StatTrackerTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
+    # require "pry"; binding.pry
   end
 
   def test_it_exists
