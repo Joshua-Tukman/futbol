@@ -46,11 +46,6 @@ class TeamTest < Minitest::Test
     assert_equal 2, Team.all.size
   end
 
-  def test_it_looks_up_team_name
-    assert_equal "Atlanta United", Team.id_lookup[1]
-    assert_equal "Seattle Sounders FC", Team.id_lookup[2]
-  end
-
   def test_it_returns_team_info
     expected =
     {"1"=>
@@ -75,4 +70,5 @@ class TeamTest < Minitest::Test
     }
     assert_equal expected, Team.names_by_id
   end
+
 end

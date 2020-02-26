@@ -18,7 +18,7 @@ module Calculable
   end
 
   def find_team_name(team_id)
-    Team.id_lookup[team_id]
+    Team.names_by_id[team_id]
   end
 
   def find_game_info(game_id)

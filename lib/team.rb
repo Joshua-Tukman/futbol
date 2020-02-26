@@ -16,13 +16,6 @@ class Team
     @@all_teams
   end
 
-  def self.id_lookup
-    @@id_lookup = all.reduce ({}) do |lookup, team|
-      lookup[team.team_id] = team.teamname
-      lookup
-    end
-  end
-
   def self.team_info
     @@team_info ||= @@all_teams.reduce({}) do |lookup, team|
       lookup[team.team_id.to_s] = {
@@ -41,20 +34,6 @@ class Team
       by_id[team.team_id] = team.teamname
       by_id
     end
-  end
-
-  def self.best_season(team)
-    # require "pry"; binding.pry
-    team_seasons = Season.all.reduce({}) do |report, season|
-      report[season.season_name] = {
-        wins: season.season_data_report[team][:wins],
-        games: season.season_data_report[team][:games]
-      }
-      report
-    end
-    team_seasons.max_by do |season|
-      average(season[:wins], season[:games])
-    end.season_name
   end
 
   attr_reader :team_id,
