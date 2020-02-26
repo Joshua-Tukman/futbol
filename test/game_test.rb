@@ -89,6 +89,12 @@ class GamesTest < Minitest::Test
     assert_equal expected, Game.count_of_games_by_season
   end
 
+  def test_it_groups_games_by_season
+    assert_equal 6, Game.games_by_season.size
+    assert_equal 84, Game.games_by_season["20172018"].size
+    assert_equal "2017030113", Game.games_by_season["20172018"][0].game_id
+  end
+
   def test_it_can_return_total_goals_per_season
     expected = {
       '20122013' => 218,

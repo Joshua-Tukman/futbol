@@ -11,7 +11,7 @@ class Season
   end
 
   def self.find_unique_seasons(game_data)
-    game_data.map { |game| game.season }.uniq
+    @@unique_seasons ||= game_data.map { |game| game.season }.uniq
   end
 
   def self.find_single_season(season_param)
@@ -130,8 +130,8 @@ class Season
     post = {}
     @season_data_report.each do |team, data|
       next if data["Postseason"].nil?
-      reg[team] = data["Regular Season"][:wins] / data["Regular Season"][:games].to_f
-      post[team] = data["Postseason"][:wins] / data["Postseason"][:games].to_f
+      reg[team] = average(data["Regular Season"][:wins], data["Regular Season"][:games])
+      post[team] = average(data["Postseason"][:wins], data["Postseason"][:games])
     end
     diff = {}
     reg.each do |team, win_percent|
