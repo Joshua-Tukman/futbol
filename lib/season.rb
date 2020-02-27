@@ -29,7 +29,7 @@ class Season
   def self.find_season_game_teams(game_teams_data, season_game_data )
     game_teams_data.select do |game_team|
       self.find_season_game_ids(season_game_data).include?(game_team.game_id.to_s)
-    end 
+    end
   end
 
   def self.create_seasons(game_data, game_teams_data)
@@ -42,30 +42,30 @@ class Season
     end
   end
 
+  def self.season_report(season_param)
+    self.find_single_season(season_param).season_data_report
+  end
+
   def self.most_accurate_team(season_param)
-    season_report = self.find_single_season(season_param).season_data_report
-    season_report.max_by do |team, data|
+    self.season_report(season_param).max_by do |team, data|
       average(find_combined_data(team, data, :goals), find_combined_data(team, data, :shots))
     end[0]
   end
 
   def self.least_accurate_team(season_param)
-    season_report = self.find_single_season(season_param).season_data_report
-    season_report.min_by do |team, data|
+    self.season_report(season_param).min_by do |team, data|
       average(find_combined_data(team, data, :goals), find_combined_data(team, data, :shots))
     end[0]
   end
 
   def self.most_tackles(season_param)
-    season_report = self.find_single_season(season_param).season_data_report
-    season_report.max_by do |team, data|
+    self.season_report(season_param).max_by do |team, data|
       find_combined_data(team, data, :tackles)
     end[0]
   end
 
   def self.fewest_tackles(season_param)
-    season_report = self.find_single_season(season_param).season_data_report
-    season_report.min_by do |team, data|
+    self.season_report(season_param).min_by do |team, data|
       find_combined_data(team, data, :tackles)
     end[0]
   end
